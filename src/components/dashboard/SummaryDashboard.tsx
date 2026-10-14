@@ -19,7 +19,8 @@ import {
   Flame, 
   ChevronRight, 
   Filter, 
-  ArrowUpRight
+  ArrowUpRight,
+  AlertCircle
 } from 'lucide-react';
 
 interface SummaryDashboardProps {
@@ -244,6 +245,22 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
     });
   }, [isAllWeeks, dedupedPlans, currentPlan, logs, selectedWeekFilter]);
 
+  const [skuTab, setSkuTab] = React.useState<'all' | 'unachieved' | 'achieved'>('all');
+
+  const unachievedSkuList = React.useMemo(() => {
+    return targetSkuList.filter(item => !item.isUnplanned && item.percent < 100);
+  }, [targetSkuList]);
+
+  const achievedSkuList = React.useMemo(() => {
+    return targetSkuList.filter(item => !item.isUnplanned && item.percent >= 100);
+  }, [targetSkuList]);
+
+  const displayedSkuList = React.useMemo(() => {
+    if (skuTab === 'unachieved') return unachievedSkuList;
+    if (skuTab === 'achieved') return achievedSkuList;
+    return targetSkuList;
+  }, [skuTab, unachievedSkuList, achievedSkuList, targetSkuList]);
+
   return (
     <div className="space-y-4 pb-20">
       {/* Two-Tier Filter Bar: Bulan Kebutuhan + Minggu */}
@@ -437,23 +454,103 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
 
       {/* Detail Pencapaian per Barang (SKU) */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-3">
-        <div className="border-b border-slate-800/80 pb-3">
-          <h2 className="text-sm font-bold text-white flex items-center gap-1.5">
-            <TrendingUp className="w-4 h-4 text-rose-400" />
-            Pencapaian per Barang
-          </h2>
-          <p className="text-[11px] text-slate-400 mt-0.5">
-            Daftar target dan realisasi hasil jadi per produk ({targetSkuList.length} Item SKU).
-          </p>
+        <div className="border-b border-slate-800/80 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 className="text-sm font-bold text-white flex items-center gap-1.5">
+              <TrendingUp className="w-4 h-4 text-rose-400" />
+              Pencapaian per Barang
+            </h2>
+            <p className="text-[11px] text-slate-400 mt-0.5">
+              Daftar target dan realisasi hasil jadi per produk ({targetSkuList.length} Item SKU).
+            </p>
+          </div>
+
+          {/* Filter Tab: Semua, Belum Achieved, Sudah Tuntas */}
+          <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 self-start sm:self-auto overflow-x-auto max-w-full">
+            <button
+              type="button"
+              onClick={() => setSkuTab('all')}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shrink-0 ${
+                skuTab === 'all'
+                  ? 'bg-rose-500 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              }`}
+            >
+              <span>Semua</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                skuTab === 'all' ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-300'
+              }`}>
+                {targetSkuList.length}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSkuTab('unachieved')}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shrink-0 ${
+                skuTab === 'unachieved'
+                  ? 'bg-amber-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              }`}
+            >
+              <AlertCircle className={`w-3.5 h-3.5 ${skuTab === 'unachieved' ? 'text-white' : 'text-amber-400'}`} />
+              <span>Belum Achieved</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                skuTab === 'unachieved' ? 'bg-white/20 text-white' : 'bg-amber-500/20 text-amber-300'
+              }`}>
+                {unachievedSkuList.length}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSkuTab('achieved')}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shrink-0 ${
+                skuTab === 'achieved'
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              }`}
+            >
+              <CheckCircle2 className={`w-3.5 h-3.5 ${skuTab === 'achieved' ? 'text-white' : 'text-emerald-400'}`} />
+              <span>Sudah Tuntas</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                skuTab === 'achieved' ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-300'
+              }`}>
+                {achievedSkuList.length}
+              </span>
+            </button>
+          </div>
         </div>
 
         {targetSkuList.length === 0 ? (
           <p className="text-xs text-slate-500 py-6 text-center">
             Belum ada target barang pada periode ini. Buka menu Plan untuk menambahkan barang.
           </p>
+        ) : displayedSkuList.length === 0 ? (
+          <div className="py-8 text-center space-y-1.5">
+            {skuTab === 'unachieved' ? (
+              <>
+                <p className="text-sm font-semibold text-emerald-400">
+                  🎉 Semua Target Barang Sudah Tercapai!
+                </p>
+                <p className="text-xs text-slate-400">
+                  Seluruh barang dalam rencana produksi periode ini telah mencapai target 100%.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-sm font-semibold text-slate-300">
+                  Belum Ada Barang yang Tuntas
+                </p>
+                <p className="text-xs text-slate-500">
+                  Belum ada barang yang mencapai target 100% pada periode ini.
+                </p>
+              </>
+            )}
+          </div>
         ) : (
           <div className="space-y-2.5">
-            {targetSkuList.map((item) => {
+            {displayedSkuList.map((item) => {
               const isItemFinished = !item.isUnplanned && item.percent >= 100;
               return (
                 <div
