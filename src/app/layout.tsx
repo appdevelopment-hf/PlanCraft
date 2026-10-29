@@ -1,16 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Tema mengikuti setelan perangkat: design system HF memakai kelas `.dark` di <html>. Dijalankan sebelum render
+// supaya tidak berkedip, dan ikut berubah saat setelan perangkat berubah.
+const THEME_SCRIPT = `(function(){var q=window.matchMedia("(prefers-color-scheme: dark)");function s(){document.documentElement.classList.toggle("dark",q.matches)}s();q.addEventListener("change",s)})()`;
 
 export const metadata: Metadata = {
   title: "PlanCraft - Perencanaan & Realisasi Produksi Daging Frozen",
@@ -18,7 +11,7 @@ export const metadata: Metadata = {
   applicationName: "PlanCraft",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "PlanCraft",
   },
 };
@@ -28,7 +21,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#0f172a",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#eceef0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e0f12" },
+  ],
 };
 
 export default function RootLayout({
@@ -37,11 +33,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
-    >
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-rose-500 selection:text-white">
+    <html lang="id" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        <meta name="color-scheme" content="light dark" />
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
+      <body className="min-h-full flex flex-col bg-canvas text-foreground">
         {children}
       </body>
     </html>

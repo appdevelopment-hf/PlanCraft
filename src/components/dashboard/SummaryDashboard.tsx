@@ -21,7 +21,7 @@ import {
   Filter, 
   ArrowUpRight,
   AlertCircle
-} from 'lucide-react';
+} from '@/components/icons';
 
 interface SummaryDashboardProps {
   plans: WeeklyProductionPlan[];
@@ -150,20 +150,20 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
   const getStatusBadge = () => {
     if (summary.status === 'on_track') {
       return {
-        bg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+        bg: 'bg-success-subtle text-success border-success-border',
         icon: CheckCircle2,
         label: 'On Track',
       };
     }
     if (summary.status === 'warning') {
       return {
-        bg: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+        bg: 'bg-warning-subtle text-warning border-warning-border',
         icon: AlertTriangle,
         label: 'Perlu Perhatian',
       };
     }
     return {
-      bg: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
+      bg: 'bg-primary/10 text-link border-primary/30',
       icon: Flame,
       label: 'Tertinggal',
     };
@@ -264,20 +264,20 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
   return (
     <div className="space-y-4 pb-20">
       {/* Two-Tier Filter Bar: Bulan Kebutuhan + Minggu */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-sm flex flex-col @min-[640px]:flex-row @min-[640px]:items-center justify-between gap-3">
-        <div className="flex items-center space-x-2 text-xs font-semibold text-slate-300">
-          <Filter className="w-4 h-4 text-rose-500" />
+      <div className="bg-card border border-border rounded-2xl p-3.5 shadow-card flex flex-col @min-[640px]:flex-row @min-[640px]:items-center justify-between gap-3">
+        <div className="flex items-center space-x-2 text-xs font-semibold text-foreground">
+          <Filter className="w-4 h-4 text-link" />
           <span>Filter Periode Produksi:</span>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {/* Tier 1: Bulan Kebutuhan */}
           <div className="flex items-center space-x-1.5">
-            <span className="text-[11px] text-slate-400 font-medium">Bulan:</span>
+            <span className="text-[11px] text-muted-foreground font-medium">Bulan:</span>
             <select
               value={currentMonthKey}
               onChange={(e) => handleMonthChange(e.target.value)}
-              className="bg-black border border-slate-800 focus:border-slate-700 text-white rounded-xl px-2.5 py-1.5 text-xs font-semibold focus:outline-none focus:ring-0 cursor-pointer"
+              className="bg-background border border-input focus-visible:border-ring text-foreground rounded-xl px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
             >
               <option value="all">Semua Bulan</option>
               {availableMonths.map(([key, val]) => (
@@ -290,11 +290,11 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
 
           {/* Tier 2: Minggu Produksi (Week 1 - 5) */}
           <div className="flex items-center space-x-1.5">
-            <span className="text-[11px] text-slate-400 font-medium">Pekan:</span>
+            <span className="text-[11px] text-muted-foreground font-medium">Pekan:</span>
             <select
               value={selectedWeekFilter}
               onChange={(e) => onSelectWeekFilter(e.target.value)}
-              className="bg-black border border-slate-800 focus:border-slate-700 text-white rounded-xl px-2.5 py-1.5 text-xs font-semibold focus:outline-none focus:ring-0 cursor-pointer"
+              className="bg-background border border-input focus-visible:border-ring text-foreground rounded-xl px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
             >
               {currentMonthKey === 'all' ? (
                 <>
@@ -326,7 +326,7 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
           {!isAllWeeks && !selectedWeekFilter.startsWith('month-') && (
             <button
               onClick={onNavigateToPlanning}
-              className="text-xs text-rose-400 hover:text-rose-300 font-medium flex items-center px-2 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 transition"
+              className="text-xs text-link hover:text-link font-medium flex items-center px-2 py-1 rounded-lg bg-canvas hover:bg-muted border border-border transition"
             >
               Ubah Plan <ChevronRight className="w-3 h-3 ml-0.5" />
             </button>
@@ -335,19 +335,19 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
       </div>
 
       {/* Hero Achievement Card */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800/90 border border-slate-800 rounded-3xl p-5 shadow-xl">
-        <div className="absolute top-0 right-0 -mt-6 -mr-6 w-36 h-36 bg-rose-600/10 rounded-full blur-2xl pointer-events-none" />
+      <div className="relative overflow-hidden bg-card border border-border rounded-3xl p-5 shadow-pop">
+        <div className="absolute top-0 right-0 -mt-6 -mr-6 w-36 h-36 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
 
         <div className="flex items-center justify-between mb-4">
           <div>
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground tracking-wider">
               {periodTitle}
             </span>
             <div className="flex items-baseline space-x-2 mt-1">
-              <span className="text-4xl @min-[640px]:text-5xl font-black text-white tracking-tight">
+              <span className="text-4xl @min-[640px]:text-5xl font-black text-foreground tracking-tight">
                 {formatPercent(summary.achievement_rate)}
               </span>
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-muted-foreground">
                 dari {formatKg(summary.total_target_kg)} Kg
               </span>
             </div>
@@ -362,78 +362,78 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
 
         {/* Dynamic Progress Bar */}
         <div className="space-y-1.5 mb-5">
-          <div className="w-full bg-slate-800 rounded-full h-3.5 p-0.5 overflow-hidden">
+          <div className="w-full bg-muted rounded-full h-3.5 p-0.5 overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-500 ${
                 summary.achievement_rate >= 95
-                  ? 'bg-gradient-to-r from-emerald-500 to-teal-400 shadow-md shadow-emerald-500/30'
+                  ? 'bg-success shadow-card '
                   : summary.achievement_rate >= 80
-                  ? 'bg-gradient-to-r from-amber-500 to-yellow-400 shadow-md shadow-amber-500/30'
-                  : 'bg-gradient-to-r from-rose-600 to-orange-500 shadow-md shadow-rose-500/30'
+                  ? 'bg-warning shadow-card '
+                  : 'bg-primary shadow-card '
               }`}
               style={{ width: `${Math.min(100, Math.max(2, summary.achievement_rate))}%` }}
             />
           </div>
-          <div className="flex justify-between items-center text-[11px] text-slate-400 px-0.5">
-            <span>Realisasi: <strong className="text-white">{formatKg(summary.total_actual_kg)} Kg</strong></span>
-            <span>Sisa: <strong className="text-rose-400">{formatKg(summary.remaining_target_kg)} Kg</strong></span>
+          <div className="flex justify-between items-center text-[11px] text-muted-foreground px-0.5">
+            <span>Realisasi: <strong className="text-foreground">{formatKg(summary.total_actual_kg)} Kg</strong></span>
+            <span>Sisa: <strong className="text-link">{formatKg(summary.remaining_target_kg)} Kg</strong></span>
           </div>
         </div>
 
         {/* 3-Box Key Metrics Grid */}
-        <div className="grid grid-cols-3 gap-2.5 pt-3 border-t border-slate-800/80">
-          <div className="bg-slate-950/50 rounded-xl p-2.5 border border-slate-800">
-            <div className="flex items-center space-x-1.5 text-slate-400 text-[11px] mb-1">
-              <Target className="w-3.5 h-3.5 text-rose-400" />
+        <div className="grid grid-cols-3 gap-2.5 pt-3 border-t border-border">
+          <div className="bg-canvas rounded-xl p-2.5 border border-border">
+            <div className="flex items-center space-x-1.5 text-muted-foreground text-[11px] mb-1">
+              <Target className="w-3.5 h-3.5 text-link" />
               <span>Target Rencana</span>
             </div>
-            <p className="text-sm @min-[640px]:text-base font-bold text-white">
-              {formatKg(summary.total_target_kg)} <span className="text-[10px] font-normal text-slate-400">Kg</span>
+            <p className="text-sm @min-[640px]:text-base font-bold text-foreground">
+              {formatKg(summary.total_target_kg)} <span className="text-[10px] font-normal text-muted-foreground">Kg</span>
             </p>
           </div>
 
-          <div className="bg-slate-950/50 rounded-xl p-2.5 border border-slate-800">
-            <div className="flex items-center space-x-1.5 text-slate-400 text-[11px] mb-1">
-              <Scale className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="bg-canvas rounded-xl p-2.5 border border-border">
+            <div className="flex items-center space-x-1.5 text-muted-foreground text-[11px] mb-1">
+              <Scale className="w-3.5 h-3.5 text-success" />
               <span>Total Hasil Jadi</span>
             </div>
-            <p className="text-sm @min-[640px]:text-base font-bold text-emerald-400">
-              {formatKg(summary.total_actual_kg)} <span className="text-[10px] font-normal text-slate-400">Kg</span>
+            <p className="text-sm @min-[640px]:text-base font-bold text-success">
+              {formatKg(summary.total_actual_kg)} <span className="text-[10px] font-normal text-muted-foreground">Kg</span>
             </p>
           </div>
 
-          <div className="bg-slate-950/50 rounded-xl p-2.5 border border-slate-800">
-            <div className="flex items-center space-x-1.5 text-slate-400 text-[11px] mb-1">
-              <Flame className="w-3.5 h-3.5 text-amber-400" />
+          <div className="bg-canvas rounded-xl p-2.5 border border-border">
+            <div className="flex items-center space-x-1.5 text-muted-foreground text-[11px] mb-1">
+              <Flame className="w-3.5 h-3.5 text-warning" />
               <span>Sisa Target</span>
             </div>
-            <p className="text-sm @min-[640px]:text-base font-bold text-rose-400">
-              {formatKg(summary.remaining_target_kg)} <span className="text-[10px] font-normal text-slate-400">Kg</span>
+            <p className="text-sm @min-[640px]:text-base font-bold text-link">
+              {formatKg(summary.remaining_target_kg)} <span className="text-[10px] font-normal text-muted-foreground">Kg</span>
             </p>
           </div>
         </div>
       </div>
 
       {/* Target Hari Ini vs Capaian Hari Ini */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <h2 className="text-sm font-bold text-white">Realisasi Hari Ini ({todayStr})</h2>
+            <div className="w-2.5 h-2.5 rounded-full bg-success animate-ping" />
+            <h2 className="text-sm font-bold text-foreground">Realisasi Hari Ini ({todayStr})</h2>
           </div>
-          <span className="text-xs text-slate-400">{todayLogs.length} Entri</span>
+          <span className="text-xs text-muted-foreground">{todayLogs.length} Entri</span>
         </div>
 
-        <div className="bg-slate-950/60 rounded-xl p-3 border border-slate-800 flex items-center justify-between">
+        <div className="bg-canvas rounded-xl p-3 border border-border flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-slate-400">Total Hasil Produksi Jadi Hari Ini</p>
-            <p className="text-2xl font-black text-emerald-400 mt-0.5">
-              {formatKg(todayActualKg)} <span className="text-xs text-slate-400 font-normal">Kg</span>
+            <p className="text-[11px] text-muted-foreground">Total Hasil Produksi Jadi Hari Ini</p>
+            <p className="text-2xl font-black text-success mt-0.5">
+              {formatKg(todayActualKg)} <span className="text-xs text-muted-foreground font-normal">Kg</span>
             </p>
           </div>
           <button
             onClick={onNavigateToInput}
-            className="py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow-md transition"
+            className="py-2 px-3 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground font-semibold text-xs flex items-center space-x-1.5 shadow-card transition"
           >
             <span>+ Input Hasil</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -453,32 +453,32 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
       />
 
       {/* Detail Pencapaian per Barang (SKU) */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-3">
-        <div className="border-b border-slate-800/80 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card space-y-3">
+        <div className="border-b border-border pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="text-sm font-bold text-white flex items-center gap-1.5">
-              <TrendingUp className="w-4 h-4 text-rose-400" />
+            <h2 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+              <TrendingUp className="w-4 h-4 text-link" />
               Pencapaian per Barang
             </h2>
-            <p className="text-[11px] text-slate-400 mt-0.5">
+            <p className="text-[11px] text-muted-foreground mt-0.5">
               Daftar target dan realisasi hasil jadi per produk ({targetSkuList.length} Item SKU).
             </p>
           </div>
 
           {/* Filter Tab: Semua, Belum Achieved, Sudah Tuntas */}
-          <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 self-start sm:self-auto overflow-x-auto max-w-full">
+          <div className="flex items-center gap-1.5 bg-canvas p-1 rounded-xl border border-border self-start sm:self-auto overflow-x-auto max-w-full">
             <button
               type="button"
               onClick={() => setSkuTab('all')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shrink-0 ${
                 skuTab === 'all'
-                  ? 'bg-rose-500 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                  ? 'bg-primary text-primary-foreground shadow-card'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
               }`}
             >
               <span>Semua</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                skuTab === 'all' ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-300'
+                skuTab === 'all' ? 'bg-accent text-foreground' : 'bg-muted text-foreground'
               }`}>
                 {targetSkuList.length}
               </span>
@@ -489,14 +489,14 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
               onClick={() => setSkuTab('unachieved')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shrink-0 ${
                 skuTab === 'unachieved'
-                  ? 'bg-amber-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                  ? 'bg-warning text-warning-foreground shadow-card'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
               }`}
             >
-              <AlertCircle className={`w-3.5 h-3.5 ${skuTab === 'unachieved' ? 'text-white' : 'text-amber-400'}`} />
+              <AlertCircle className={`w-3.5 h-3.5 ${skuTab === 'unachieved' ? 'text-foreground' : 'text-warning'}`} />
               <span>Belum Achieved</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                skuTab === 'unachieved' ? 'bg-white/20 text-white' : 'bg-amber-500/20 text-amber-300'
+                skuTab === 'unachieved' ? 'bg-accent text-foreground' : 'bg-warning-subtle text-warning'
               }`}>
                 {unachievedSkuList.length}
               </span>
@@ -507,14 +507,14 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
               onClick={() => setSkuTab('achieved')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shrink-0 ${
                 skuTab === 'achieved'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                  ? 'bg-primary text-primary-foreground shadow-card'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
               }`}
             >
-              <CheckCircle2 className={`w-3.5 h-3.5 ${skuTab === 'achieved' ? 'text-white' : 'text-emerald-400'}`} />
+              <CheckCircle2 className={`w-3.5 h-3.5 ${skuTab === 'achieved' ? 'text-foreground' : 'text-success'}`} />
               <span>Sudah Tuntas</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                skuTab === 'achieved' ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-300'
+                skuTab === 'achieved' ? 'bg-accent text-foreground' : 'bg-success-subtle text-success'
               }`}>
                 {achievedSkuList.length}
               </span>
@@ -523,26 +523,26 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
         </div>
 
         {targetSkuList.length === 0 ? (
-          <p className="text-xs text-slate-500 py-6 text-center">
+          <p className="text-xs text-subtle-foreground py-6 text-center">
             Belum ada target barang pada periode ini. Buka menu Plan untuk menambahkan barang.
           </p>
         ) : displayedSkuList.length === 0 ? (
           <div className="py-8 text-center space-y-1.5">
             {skuTab === 'unachieved' ? (
               <>
-                <p className="text-sm font-semibold text-emerald-400">
+                <p className="text-sm font-semibold text-success">
                   🎉 Semua Target Barang Sudah Tercapai!
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-muted-foreground">
                   Seluruh barang dalam rencana produksi periode ini telah mencapai target 100%.
                 </p>
               </>
             ) : (
               <>
-                <p className="text-sm font-semibold text-slate-300">
+                <p className="text-sm font-semibold text-foreground">
                   Belum Ada Barang yang Tuntas
                 </p>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-subtle-foreground">
                   Belum ada barang yang mencapai target 100% pada periode ini.
                 </p>
               </>
@@ -555,42 +555,42 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
               return (
                 <div
                   key={item.sku_id}
-                  className="bg-slate-950/80 hover:bg-slate-950 border border-slate-800/90 rounded-2xl p-3.5 space-y-2.5 transition"
+                  className="bg-canvas hover:bg-canvas border border-border rounded-2xl p-3.5 space-y-2.5 transition"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-card text-foreground border border-border">
                           {item.sku_code}
                         </span>
                         {item.category && (
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-card text-muted-foreground border border-border">
                             {item.category}
                           </span>
                         )}
                         {item.isUnplanned ? (
-                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold flex items-center gap-1">
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-warning-subtle text-warning border border-warning-border font-bold flex items-center gap-1">
                             ⚠️ Tidak Ada di Plan
                           </span>
                         ) : isItemFinished ? (
-                          <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">
+                          <span className="text-[9px] px-1.5 py-0.2 rounded bg-success-subtle text-success font-bold">
                             Tuntas ✅
                           </span>
                         ) : null}
                       </div>
-                      <h4 className="text-xs @min-[640px]:text-sm font-bold text-white mt-1 truncate">
+                      <h4 className="text-xs @min-[640px]:text-sm font-bold text-foreground mt-1 truncate">
                         {item.sku_name}
                       </h4>
                     </div>
 
                     <div className="text-right shrink-0">
                       {item.isUnplanned ? (
-                        <span className="text-xs @min-[640px]:text-sm font-bold text-amber-400">
+                        <span className="text-xs @min-[640px]:text-sm font-bold text-warning">
                           Di Luar Plan
                         </span>
                       ) : (
                         <span className={`text-xs @min-[640px]:text-sm font-black ${
-                          isItemFinished ? 'text-emerald-400' : 'text-white'
+                          isItemFinished ? 'text-success' : 'text-foreground'
                         }`}>
                           {formatPercent(item.percent)}
                         </span>
@@ -599,32 +599,32 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({
                   </div>
 
                   {/* Progress bar */}
-                  <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all ${
                         item.isUnplanned
-                          ? 'bg-amber-400'
+                          ? 'bg-warning'
                           : isItemFinished
-                          ? 'bg-emerald-400'
+                          ? 'bg-success'
                           : item.percent >= 70
-                          ? 'bg-amber-400'
-                          : 'bg-rose-500'
+                          ? 'bg-warning'
+                          : 'bg-primary'
                       }`}
                       style={{ width: `${item.isUnplanned ? 100 : Math.min(100, Math.max(2, item.percent))}%` }}
                     />
                   </div>
 
-                  <div className="flex justify-between items-center text-[11px] text-slate-400 pt-0.5">
+                  <div className="flex justify-between items-center text-[11px] text-muted-foreground pt-0.5">
                     <span>
-                      Hasil: <strong className="text-emerald-400 font-semibold">{formatKg(item.actual_kg)} Kg</strong>
+                      Hasil: <strong className="text-success font-semibold">{formatKg(item.actual_kg)} Kg</strong>
                     </span>
                     <span>
-                      Target: <strong className={item.isUnplanned ? 'text-amber-400/80 font-normal italic' : 'text-slate-200 font-semibold'}>
+                      Target: <strong className={item.isUnplanned ? 'text-warning/80 font-normal italic' : 'text-foreground font-semibold'}>
                         {item.isUnplanned ? '0 Kg (Di luar Plan)' : `${formatKg(item.target_kg)} Kg`}
                       </strong>
                     </span>
                     <span>
-                      Sisa: <strong className={item.isUnplanned ? 'text-slate-500' : 'text-rose-400 font-semibold'}>
+                      Sisa: <strong className={item.isUnplanned ? 'text-subtle-foreground' : 'text-link font-semibold'}>
                         {item.isUnplanned ? '-' : `${formatKg(item.remaining_kg)} Kg`}
                       </strong>
                     </span>

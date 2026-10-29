@@ -25,7 +25,7 @@ import {
   Copy,
   ShieldAlert,
   Check
-} from 'lucide-react';
+} from '@/components/icons';
 import { parseExcelFile, downloadExcelTemplate, exportPlanToExcel, exportMonthlyPlanToExcel, ExcelImportRow } from '@/lib/excelHelper';
 
 interface WeeklyPlanManagerProps {
@@ -532,20 +532,20 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
     <div className="space-y-4 pb-24">
       {/* Floating Bottom Toast Notification */}
       {savedSuccess && (
-        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-emerald-600 border border-emerald-400 text-white rounded-2xl px-5 py-3.5 shadow-2xl flex items-center space-x-2.5 text-xs font-bold animate-in fade-in slide-in-from-bottom-4 duration-300 pointer-events-none">
-          <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-primary border border-success text-primary-foreground rounded-2xl px-5 py-3.5 shadow-pop flex items-center space-x-2.5 text-xs font-bold animate-in fade-in slide-in-from-bottom-4 duration-300 pointer-events-none">
+          <CheckCircle2 className="w-5 h-5 text-foreground shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {/* Title Header */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-base @min-[640px]:text-lg font-bold text-white flex items-center gap-2">
-            <CalendarDays className="w-5 h-5 text-rose-500" />
+          <h1 className="text-base @min-[640px]:text-lg font-bold text-foreground flex items-center gap-2">
+            <CalendarDays className="w-5 h-5 text-link" />
             {isReadOnly ? 'Target Kebutuhan Produksi Pekan Ini' : 'Perencanaan Produksi Mingguan'}
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             {isReadOnly 
               ? 'Daftar kebutuhan target barang (Kg) yang harus diproduksi oleh tim lapangan pekan ini.'
               : 'Atur kuota target mingguan (Kg) per jenis barang/SKU dari database master.'}
@@ -557,13 +557,13 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
             <button
               type="button"
               onClick={() => setIsExportModalOpen(true)}
-              className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-emerald-400 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+              className="px-3 py-1.5 rounded-xl bg-muted hover:bg-accent border border-border-strong text-success text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-card"
               title="Unduh target kebutuhan ke Excel"
             >
               <Download className="w-4 h-4" />
               <span>Export Excel</span>
             </button>
-            <div className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold flex items-center gap-1.5">
+            <div className="px-3 py-1.5 rounded-xl bg-warning-subtle border border-warning-border text-warning text-xs font-bold flex items-center gap-1.5">
               <ShieldAlert className="w-4 h-4" />
               <span>Mode Tinjau (Tim Produksi)</span>
             </div>
@@ -573,7 +573,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
             <button
               type="button"
               onClick={() => setIsExportModalOpen(true)}
-              className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-emerald-400 text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-sm"
+              className="px-3 py-2 rounded-xl bg-muted hover:bg-accent border border-border-strong text-success text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-card"
               title="Unduh target rencana ke Excel"
             >
               <Download className="w-4 h-4" />
@@ -582,7 +582,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
             <button
               type="button"
               onClick={() => setIsImportModalOpen(true)}
-              className="px-3 py-2 rounded-xl bg-emerald-600/90 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-md shadow-emerald-950/40 cursor-pointer"
+              className="px-3 py-2 rounded-xl bg-success-subtle hover:bg-success text-foreground text-xs font-bold transition flex items-center space-x-1.5 shadow-card cursor-pointer"
             >
               <FileSpreadsheet className="w-4 h-4" />
               <span>Import Excel</span>
@@ -594,13 +594,13 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
 
       {/* Plan Configuration Form */}
       <form onSubmit={handleSave} className="space-y-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
-            <h2 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-rose-400" />
+        <div className="bg-card border border-border rounded-2xl p-4 space-y-4">
+          <div className="flex items-center justify-between border-b border-border pb-2.5">
+            <h2 className="text-xs font-bold text-foreground tracking-wider flex items-center gap-1.5">
+              <Calendar className="w-4 h-4 text-link" />
               Periode Bulan Kebutuhan & Minggu
             </h2>
-            <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-bold border border-rose-500/20">
+            <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-primary/10 text-link font-bold border border-primary/30">
               {getMonthName(month)} {year} • W{weekNumber}
             </span>
           </div>
@@ -608,13 +608,13 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
           {/* Row 1: Bulan Kebutuhan & Tahun */}
           <div className="grid grid-cols-1 @min-[640px]:grid-cols-3 gap-3">
             <div className="@min-[640px]:col-span-2">
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 Bulan Kebutuhan
               </label>
               <select
                 value={month}
                 onChange={(e) => handlePeriodChange(Number(e.target.value), weekNumber, year)}
-                className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-semibold focus:outline-none cursor-pointer"
+                className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3 py-2 text-xs text-foreground font-semibold cursor-pointer"
               >
                 {MONTH_NAMES.map((mName, idx) => (
                   <option key={mName} value={idx + 1}>
@@ -625,13 +625,13 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 Tahun
               </label>
               <select
                 value={year}
                 onChange={(e) => handlePeriodChange(month, weekNumber, Number(e.target.value))}
-                className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-semibold focus:outline-none cursor-pointer"
+                className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3 py-2 text-xs text-foreground font-semibold cursor-pointer"
               >
                 {[2025, 2026, 2027, 2028].map((y) => (
                   <option key={y} value={y}>{y}</option>
@@ -642,7 +642,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
 
           {/* Row 2: Pilihan Week 1 - 5 */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-foreground mb-1.5">
               Pilihan Minggu Produksi (Week 1 - 5)
             </label>
             <div className="grid grid-cols-5 gap-2">
@@ -655,8 +655,8 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                     onClick={() => handlePeriodChange(month, w, year)}
                     className={`py-2 px-1 text-center rounded-xl border text-xs font-bold transition flex flex-col items-center justify-center gap-0.5 cursor-pointer ${
                       isSelected
-                        ? 'bg-rose-600 text-white border-rose-500 shadow-md shadow-rose-950/40'
-                        : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
+                        ? 'bg-primary text-primary-foreground border-primary shadow-card '
+                        : 'bg-canvas text-muted-foreground border-border hover:border-border-strong hover:text-foreground'
                     }`}
                   >
                     <span>Week {w}</span>
@@ -668,11 +668,11 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
           </div>
 
           {/* Row 3: Judul & Rentang Tanggal */}
-          <div className="grid grid-cols-1 @min-[640px]:grid-cols-2 gap-3 pt-2 border-t border-slate-800/60">
+          <div className="grid grid-cols-1 @min-[640px]:grid-cols-2 gap-3 pt-2 border-t border-border">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1 flex items-center justify-between">
+              <label className="block text-xs font-semibold text-foreground mb-1 flex items-center justify-between">
                 <span>Judul Rencana</span>
-                <span className="text-[10px] text-rose-400 font-medium">Pilih Week 1 - 5</span>
+                <span className="text-[10px] text-link font-medium">Pilih Week 1 - 5</span>
               </label>
               <select
                 disabled={isReadOnly}
@@ -681,7 +681,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                   const newW = Number(e.target.value);
                   handlePeriodChange(month, newW, year);
                 }}
-                className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-semibold focus:outline-none cursor-pointer disabled:opacity-70"
+                className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3 py-2 text-xs text-foreground font-semibold cursor-pointer disabled:opacity-70"
               >
                 {[1, 2, 3, 4, 5].map((w) => (
                   <option key={w} value={w}>
@@ -693,7 +693,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
 
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
+                <label className="block text-xs font-medium text-muted-foreground mb-1">
                   Mulai
                 </label>
                 <input
@@ -701,11 +701,11 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                   disabled={isReadOnly}
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none disabled:opacity-70"
+                  className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3 py-2 text-xs text-foreground disabled:opacity-70"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
+                <label className="block text-xs font-medium text-muted-foreground mb-1">
                   Selesai
                 </label>
                 <input
@@ -713,7 +713,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                   disabled={isReadOnly}
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none disabled:opacity-70"
+                  className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3 py-2 text-xs text-foreground disabled:opacity-70"
                 />
               </div>
             </div>
@@ -722,16 +722,16 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
 
         {/* Form Tambah Target Barang (Hanya Admin) */}
         {!isReadOnly && (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <div className="bg-card border border-border rounded-2xl p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+              <h2 className="text-xs font-bold text-foreground tracking-wider">
                 + Tambah Barang ke Target Pekan Ini
               </h2>
               {targets.length === 0 && plans.length > 1 && (
                 <button
                   type="button"
                   onClick={() => setIsCopyModalOpen(true)}
-                  className="text-[11px] text-rose-400 hover:text-rose-300 font-medium flex items-center gap-1 cursor-pointer"
+                  className="text-[11px] text-link hover:text-link font-medium flex items-center gap-1 cursor-pointer"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>Salin Target dari Pekan Lain</span>
@@ -741,17 +741,17 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
 
             <div>
               {selectedSkuToAdd ? (
-                <div className="bg-slate-950 border border-rose-500/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="bg-canvas border border-primary/30 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <div className="flex items-center space-x-1.5">
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-card text-foreground border border-border">
                         {selectedSkuToAdd.sku_code}
                       </span>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-link border border-primary/30">
                         {selectedSkuToAdd.category}
                       </span>
                     </div>
-                    <p className="text-xs font-bold text-white mt-1">
+                    <p className="text-xs font-bold text-foreground mt-1">
                       {selectedSkuToAdd.name}
                     </p>
                   </div>
@@ -764,16 +764,16 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                         step="10"
                         value={newTargetKg}
                         onChange={(e) => setNewTargetKg(e.target.value)}
-                        className="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-bold text-white text-right focus:outline-none"
+                        className="w-24 bg-card border border-border-strong rounded-lg px-2.5 py-1.5 text-xs font-bold text-foreground text-right "
                         placeholder="500"
                       />
-                      <span className="text-xs text-slate-400 font-medium">Kg</span>
+                      <span className="text-xs text-muted-foreground font-medium">Kg</span>
                     </div>
 
                     <button
                       type="button"
                       onClick={handleAddTarget}
-                      className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition cursor-pointer"
+                      className="px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-xs transition cursor-pointer"
                     >
                       Tambahkan
                     </button>
@@ -781,7 +781,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                     <button
                       type="button"
                       onClick={() => setSelectedSkuToAdd(null)}
-                      className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition cursor-pointer"
+                      className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition cursor-pointer"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -789,8 +789,8 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                 </div>
               ) : (
                 <div className="relative">
-                  <div className="flex items-center bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
-                    <Search className="w-4 h-4 text-slate-500 mr-2 shrink-0" />
+                  <div className="flex items-center bg-canvas border border-border rounded-xl px-3 py-2">
+                    <Search className="w-4 h-4 text-subtle-foreground mr-2 shrink-0" />
                     <input
                       type="text"
                       placeholder="Ketik kode SKU atau nama barang untuk menambahkan..."
@@ -800,18 +800,17 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                         setIsDropdownOpen(true);
                       }}
                       onFocus={() => setIsDropdownOpen(true)}
-                      className="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-transparent text-xs text-foreground placeholder-subtle-foreground "
                     />
                   </div>
 
                   {/* Dropdown Menu SKU Autocomplete */}
                   {isDropdownOpen && (
-                    <div 
-                      style={{ backgroundColor: '#050505', borderColor: '#1e293b' }}
-                      className="absolute z-30 left-0 right-0 top-full mt-1 border rounded-xl shadow-2xl max-h-56 overflow-y-auto"
+                    <div
+                      className="bg-card border-border absolute z-30 left-0 right-0 top-full mt-1 border rounded-xl shadow-pop max-h-56 overflow-y-auto"
                     >
                       {filteredAvailableSkus.length === 0 ? (
-                        <div className="p-3 text-xs text-slate-500 text-center">
+                        <div className="p-3 text-xs text-subtle-foreground text-center">
                           Tidak ada barang yang cocok atau barang sudah ada di daftar target pekan ini.
                         </div>
                       ) : (
@@ -823,34 +822,31 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                               setSelectedSkuToAdd(sku);
                               setIsDropdownOpen(false);
                             }}
-                            style={{ borderBottom: '1px solid #111827' }}
-                            className="w-full text-left p-2.5 hover:bg-slate-900 transition flex items-center justify-between group active:bg-slate-800 last:border-b-0 cursor-pointer"
+                            className="border-b border-border w-full text-left p-2.5 hover:bg-card transition flex items-center justify-between group active:bg-muted last:border-b-0 cursor-pointer"
                           >
                             <div className="min-w-0 pr-2">
                               <div className="flex items-center space-x-1.5">
-                                <span 
-                                  style={{ backgroundColor: '#000000', borderColor: '#1e293b' }}
-                                  className="text-[10px] font-mono px-1 py-0.5 rounded text-slate-400 border"
+                                <span
+                                  className="bg-popover border-border text-[10px] font-mono px-1 py-0.5 rounded text-muted-foreground border"
                                 >
                                   {sku.sku_code}
                                 </span>
-                                <span 
-                                  style={{ backgroundColor: '#000000', borderColor: '#1e293b' }}
-                                  className="text-[10px] px-1.5 py-0.5 rounded text-slate-400 border"
+                                <span
+                                  className="bg-popover border-border text-[10px] px-1.5 py-0.5 rounded text-muted-foreground border"
                                 >
                                   {sku.category}
                                 </span>
                                 {sku.specs && (
-                                  <span className="text-[10px] text-slate-500 truncate">
+                                  <span className="text-[10px] text-subtle-foreground truncate">
                                     {sku.specs}
                                   </span>
                                 )}
                               </div>
-                              <p className="text-xs font-semibold text-slate-200 group-hover:text-white mt-1 truncate">
+                              <p className="text-xs font-semibold text-foreground group-hover:text-foreground mt-1 truncate">
                                 {sku.name}
                               </p>
                             </div>
-                            <Plus className="w-4 h-4 text-slate-600 group-hover:text-rose-400 shrink-0" />
+                            <Plus className="w-4 h-4 text-disabled-foreground group-hover:text-link shrink-0" />
                           </button>
                         ))
                       )}
@@ -863,18 +859,18 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
         )}
 
         {/* Targets Table / List */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
+        <div className="bg-card border border-border rounded-2xl p-4 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+              <h2 className="text-xs font-bold text-foreground tracking-wider flex items-center gap-1.5">
                 <span>Daftar Target Item</span>
-                <span className="text-rose-400 font-mono">({targets.length} Item)</span>
+                <span className="text-link font-mono">({targets.length} Item)</span>
               </h2>
               {targets.length > 0 && (
                 <button
                   type="button"
                   onClick={() => setIsExportModalOpen(true)}
-                  className="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-emerald-400 text-[11px] font-semibold flex items-center gap-1 transition cursor-pointer"
+                  className="px-2 py-0.5 rounded-lg bg-muted hover:bg-accent border border-border-strong text-success text-[11px] font-semibold flex items-center gap-1 transition cursor-pointer"
                   title="Export target rencana ke file Excel"
                 >
                   <Download className="w-3 h-3" />
@@ -882,19 +878,19 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                 </button>
               )}
             </div>
-            <div className="text-xs text-slate-400">
-              Total Target: <strong className="text-white text-sm">{totalTargetKg.toLocaleString('id-ID')} Kg</strong>
+            <div className="text-xs text-muted-foreground">
+              Total Target: <strong className="text-foreground text-sm">{totalTargetKg.toLocaleString('id-ID')} Kg</strong>
             </div>
           </div>
 
           {targets.length === 0 ? (
-            <div className="p-8 text-center border border-dashed border-slate-800 rounded-xl">
-              <CalendarDays className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-              <p className="text-xs text-slate-400 font-medium">
+            <div className="p-8 text-center border border-dashed border-border rounded-xl">
+              <CalendarDays className="w-8 h-8 text-disabled-foreground mx-auto mb-2" />
+              <p className="text-xs text-muted-foreground font-medium">
                 Belum ada target barang pada minggu ini.
               </p>
               {!isReadOnly && (
-                <p className="text-[11px] text-slate-500 mt-1">
+                <p className="text-[11px] text-subtle-foreground mt-1">
                   Ketik nama barang di atas, import file Excel, atau salin dari pekan lain.
                 </p>
               )}
@@ -904,29 +900,29 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
               {targets.map((item) => (
                 <div
                   key={item.sku_id}
-                  className="bg-slate-950/70 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-3 hover:border-slate-700 transition"
+                  className="bg-canvas border border-border rounded-xl p-3 flex items-center justify-between gap-3 hover:border-border-strong transition"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center space-x-1.5">
-                      <span className="text-[10px] font-mono px-1 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                      <span className="text-[10px] font-mono px-1 py-0.5 rounded bg-card text-foreground border border-border">
                         {item.sku_code}
                       </span>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-card text-muted-foreground border border-border">
                         {item.category}
                       </span>
                     </div>
-                    <h3 className="text-xs font-bold text-white mt-1.5 truncate">
+                    <h3 className="text-xs font-bold text-foreground mt-1.5 truncate">
                       {item.sku_name}
                     </h3>
                   </div>
 
                   <div className="flex items-center space-x-2 shrink-0">
                     {isReadOnly ? (
-                      <div className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-right">
-                        <span className="text-xs font-black text-rose-400">
+                      <div className="px-3 py-1 rounded-lg bg-card border border-border text-right">
+                        <span className="text-xs font-black text-link">
                           {item.target_kg.toLocaleString('id-ID')}
                         </span>
-                        <span className="text-[10px] text-slate-500 ml-1">Kg</span>
+                        <span className="text-[10px] text-subtle-foreground ml-1">Kg</span>
                       </div>
                     ) : (
                       <>
@@ -936,15 +932,15 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                             step="10"
                             value={item.target_kg}
                             onChange={(e) => handleUpdateTargetKg(item.sku_id, parseFloat(e.target.value))}
-                            className="w-24 bg-slate-900 border border-slate-800 focus:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-white text-right focus:outline-none focus:ring-0"
+                            className="w-24 bg-card border border-border focus-visible:border-ring rounded-lg px-2.5 py-1 text-xs font-bold text-foreground text-right  "
                           />
-                          <span className="text-[10px] text-slate-500 ml-1">Kg</span>
+                          <span className="text-[10px] text-subtle-foreground ml-1">Kg</span>
                         </div>
 
                         <button
                           type="button"
                           onClick={() => handleRemoveTarget(item.sku_id)}
-                          className="p-1.5 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition cursor-pointer"
+                          className="p-1.5 text-subtle-foreground hover:text-link hover:bg-primary/10 rounded-lg transition cursor-pointer"
                           title="Hapus dari target minggu ini"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -965,18 +961,18 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
             disabled={!isDirty}
             className={`w-full py-3.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 ${
               isDirty
-                ? 'bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white shadow-lg shadow-rose-950/40 active:scale-[0.98] cursor-pointer'
-                : 'bg-slate-900 border border-slate-800 text-slate-500 cursor-not-allowed shadow-none'
+                ? 'bg-primary hover:bg-primary-hover text-primary-foreground shadow-pop active:scale-[0.98] cursor-pointer'
+                : 'bg-card border border-border text-subtle-foreground cursor-not-allowed shadow-none'
             }`}
           >
             {isDirty ? (
               <>
-                <Save className="w-4 h-4 text-white" />
+                <Save className="w-4 h-4 text-foreground" />
                 <span>Simpan & Terapkan Rencana Mingguan</span>
               </>
             ) : (
               <>
-                <CheckCircle2 className="w-4 h-4 text-emerald-500/70" />
+                <CheckCircle2 className="w-4 h-4 text-success/70" />
                 <span>Rencana Tersimpan (Tidak Ada Perubahan)</span>
               </>
             )}
@@ -986,40 +982,40 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
 
       {/* Modal Import Excel */}
       {isImportModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-5 space-y-4 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-card border border-border rounded-3xl max-w-lg w-full p-5 space-y-4 shadow-pop overflow-hidden max-h-[90vh] flex flex-col">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center space-x-2">
-                <FileSpreadsheet className="w-5 h-5 text-emerald-400" />
-                <h3 className="text-sm font-bold text-white">Import Target Plan dari Excel</h3>
+                <FileSpreadsheet className="w-5 h-5 text-success" />
+                <h3 className="text-sm font-bold text-foreground">Import Target Plan dari Excel</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsImportModalOpen(false)}
-                className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition cursor-pointer"
+                className="p-1 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="space-y-3 overflow-y-auto flex-1 pr-1">
-              <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
+              <div className="p-3 bg-canvas border border-border rounded-xl flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-semibold text-slate-200">Format Kolom Template:</p>
-                  <p className="text-[11px] text-slate-400 font-mono mt-0.5">sku • nama barang • qty KG</p>
+                  <p className="text-xs font-semibold text-foreground">Format Kolom Template:</p>
+                  <p className="text-[11px] text-muted-foreground font-mono mt-0.5">sku • nama barang • qty KG</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => downloadExcelTemplate('plan', skus)}
-                  className="px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
+                  className="px-2.5 py-1.5 rounded-lg bg-card hover:bg-muted border border-border-strong text-foreground text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5 text-emerald-400" />
+                  <Download className="w-3.5 h-3.5 text-success" />
                   <span>Unduh Template</span>
                 </button>
               </div>
 
               {/* Upload Input */}
-              <div className="border-2 border-dashed border-slate-800 hover:border-slate-700 rounded-2xl p-4 text-center bg-slate-950/60 transition">
+              <div className="border-2 border-dashed border-border hover:border-border-strong rounded-2xl p-4 text-center bg-canvas transition">
                 <input
                   type="file"
                   id="excelFileInput"
@@ -1031,19 +1027,19 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                   htmlFor="excelFileInput"
                   className="cursor-pointer flex flex-col items-center justify-center space-y-2"
                 >
-                  <Upload className="w-7 h-7 text-emerald-400" />
-                  <span className="text-xs font-bold text-white">
+                  <Upload className="w-7 h-7 text-success" />
+                  <span className="text-xs font-bold text-foreground">
                     {importFile ? importFile.name : 'Pilih File Excel (.xlsx, .xls, .csv)'}
                   </span>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-subtle-foreground">
                     Klik untuk memilih atau drag and drop file di sini
                   </span>
                 </label>
               </div>
 
               {importError && (
-                <div className="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl flex items-center space-x-2 text-rose-300 text-xs">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+                <div className="p-3 bg-primary/10 border border-primary/30 rounded-xl flex items-center space-x-2 text-link text-xs">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-link" />
                   <span>{importError}</span>
                 </div>
               )}
@@ -1052,32 +1048,32 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
               {importRows.length > 0 && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-300">
+                    <span className="font-bold text-foreground">
                       Preview Data ({importRows.filter(r => r.isValid).length} baris valid)
                     </span>
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[11px] text-muted-foreground">
                       Total: {importRows.reduce((acc, r) => acc + (r.isValid ? r.qty : 0), 0).toLocaleString('id-ID')} Kg
                     </span>
                   </div>
 
-                  <div className="max-h-40 overflow-y-auto border border-slate-800 rounded-xl divide-y divide-slate-800/60 bg-slate-950">
+                  <div className="max-h-40 overflow-y-auto border border-border rounded-xl divide-y divide-border bg-canvas">
                     {importRows.map((row, idx) => (
                       <div key={idx} className="p-2 flex items-center justify-between text-xs">
                         <div className="min-w-0 pr-2">
-                          <span className="font-mono text-[10px] text-rose-400 font-bold mr-1.5">
+                          <span className="font-mono text-[10px] text-link font-bold mr-1.5">
                             {row.sku}
                           </span>
-                          <span className="text-white font-medium text-[11px] truncate">
+                          <span className="text-foreground font-medium text-[11px] truncate">
                             {row.name}
                           </span>
                         </div>
                         <div className="text-right shrink-0">
                           {row.isValid ? (
-                            <span className="font-bold text-emerald-400 font-mono">
+                            <span className="font-bold text-success font-mono">
                               {row.qty} Kg
                             </span>
                           ) : (
-                            <span className="text-[10px] text-rose-400 font-semibold">
+                            <span className="text-[10px] text-link font-semibold">
                               {row.errorMessage || 'Invalid'}
                             </span>
                           )}
@@ -1087,14 +1083,14 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                   </div>
 
                   {/* Mode Import */}
-                  <div className="pt-2 flex items-center space-x-4 text-xs text-slate-300">
+                  <div className="pt-2 flex items-center space-x-4 text-xs text-foreground">
                     <label className="flex items-center space-x-1.5 cursor-pointer">
                       <input
                         type="radio"
                         name="importMode"
                         checked={importMode === 'append'}
                         onChange={() => setImportMode('append')}
-                        className="text-rose-600 focus:ring-0"
+                        className="text-link "
                       />
                       <span>Tambahkan ke daftar</span>
                     </label>
@@ -1104,7 +1100,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                         name="importMode"
                         checked={importMode === 'replace'}
                         onChange={() => setImportMode('replace')}
-                        className="text-rose-600 focus:ring-0"
+                        className="text-link "
                       />
                       <span>Gantikan daftar saat ini</span>
                     </label>
@@ -1113,11 +1109,11 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
               )}
             </div>
 
-            <div className="pt-2 border-t border-slate-800 flex items-center justify-end space-x-2">
+            <div className="pt-2 border-t border-border flex items-center justify-end space-x-2">
               <button
                 type="button"
                 onClick={() => setIsImportModalOpen(false)}
-                className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition cursor-pointer"
+                className="px-3 py-2 rounded-xl bg-muted hover:bg-accent text-foreground text-xs font-semibold transition cursor-pointer"
               >
                 Batal
               </button>
@@ -1125,7 +1121,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                 type="button"
                 disabled={importRows.filter(r => r.isValid).length === 0}
                 onClick={handleApplyExcelImport}
-                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-md shadow-emerald-950/40"
+                className="px-4 py-2 rounded-xl bg-primary hover:bg-primary-hover disabled:opacity-50 text-primary-foreground text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-card "
               >
                 <Check className="w-4 h-4" />
                 <span>Terapkan ke Plan</span>
@@ -1137,23 +1133,23 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
 
       {/* Modal Salin Target dari Pekan Lain */}
       {isCopyModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-5 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-card border border-border rounded-3xl max-w-md w-full p-5 space-y-4 shadow-pop">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center space-x-2">
-                <Copy className="w-5 h-5 text-rose-500" />
-                <h3 className="text-sm font-bold text-white">Salin Target dari Pekan Lain</h3>
+                <Copy className="w-5 h-5 text-link" />
+                <h3 className="text-sm font-bold text-foreground">Salin Target dari Pekan Lain</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsCopyModalOpen(false)}
-                className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition cursor-pointer"
+                className="p-1 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-muted-foreground">
               Pilih rencana produksi yang ingin disalin target produk dan kuota Kg-nya ke minggu ini:
             </p>
 
@@ -1165,26 +1161,26 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                     key={p.id}
                     type="button"
                     onClick={() => handleCopyTargetsFrom(p.id)}
-                    className="w-full text-left p-3 rounded-xl border border-slate-800 hover:border-rose-500/50 bg-slate-950 hover:bg-slate-900 transition flex items-center justify-between group cursor-pointer"
+                    className="w-full text-left p-3 rounded-xl border border-border hover:border-primary/30 bg-canvas hover:bg-card transition flex items-center justify-between group cursor-pointer"
                   >
                     <div>
-                      <p className="text-xs font-bold text-white group-hover:text-rose-400">
+                      <p className="text-xs font-bold text-foreground group-hover:text-link">
                         {p.title}
                       </p>
-                      <p className="text-[10px] text-slate-500 mt-0.5">
+                      <p className="text-[10px] text-subtle-foreground mt-0.5">
                         {p.targets.length} Item SKU • {p.targets.reduce((acc, t) => acc + (t.target_kg || 0), 0).toLocaleString('id-ID')} Kg
                       </p>
                     </div>
-                    <Copy className="w-4 h-4 text-slate-600 group-hover:text-rose-400 shrink-0" />
+                    <Copy className="w-4 h-4 text-disabled-foreground group-hover:text-link shrink-0" />
                   </button>
                 ))}
             </div>
 
-            <div className="pt-2 border-t border-slate-800 flex justify-end">
+            <div className="pt-2 border-t border-border flex justify-end">
               <button
                 type="button"
                 onClick={() => setIsCopyModalOpen(false)}
-                className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition cursor-pointer"
+                className="px-3 py-1.5 rounded-xl bg-muted hover:bg-accent text-foreground text-xs font-semibold transition cursor-pointer"
               >
                 Tutup
               </button>
@@ -1195,39 +1191,39 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
 
       {/* Modal Pilihan Export Plan Excel (Pekan Ini vs 1 Bulan Penuh) */}
       {isExportModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-5 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-card border border-border rounded-3xl max-w-lg w-full p-5 space-y-4 shadow-pop">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center space-x-2">
-                <Download className="w-5 h-5 text-emerald-400" />
-                <h3 className="text-sm font-bold text-white">Export Target Rencana ke Excel</h3>
+                <Download className="w-5 h-5 text-success" />
+                <h3 className="text-sm font-bold text-foreground">Export Target Rencana ke Excel</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsExportModalOpen(false)}
-                className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition cursor-pointer"
+                className="p-1 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-muted-foreground">
               Pilih cakupan data rencana produksi yang ingin Anda unduh ke dalam format Excel (.xlsx):
             </p>
 
             <div className="space-y-3">
               {/* Opsi 1: Export Minggu Ini */}
-              <div className="p-3.5 bg-slate-950 border border-slate-800 hover:border-emerald-500/50 rounded-2xl transition space-y-2">
+              <div className="p-3.5 bg-canvas border border-border hover:border-success-border rounded-2xl transition space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Calendar className="w-4 h-4 text-rose-400" />
-                    <span className="text-xs font-bold text-white">Rencana Pekan Ini (Week {weekNumber})</span>
+                    <Calendar className="w-4 h-4 text-link" />
+                    <span className="text-xs font-bold text-foreground">Rencana Pekan Ini (Week {weekNumber})</span>
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 font-bold">
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-link border border-primary/30 font-bold">
                     W{weekNumber} • {getMonthName(month)} {year}
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-muted-foreground">
                   Target produksi khusus minggu ke-{weekNumber} ({targets.length} SKU, {totalTargetKg.toLocaleString('id-ID')} Kg).
                 </p>
                 <div className="pt-1 flex justify-end">
@@ -1235,7 +1231,7 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
                     type="button"
                     onClick={handleExportCurrentWeek}
                     disabled={targets.length === 0}
-                    className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-md"
+                    className="px-3.5 py-1.5 rounded-xl bg-primary hover:bg-primary-hover disabled:opacity-50 text-primary-foreground text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-card"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Unduh Week {weekNumber}</span>
@@ -1244,24 +1240,24 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
               </div>
 
               {/* Opsi 2: Export 1 Bulan Penuh */}
-              <div className="p-3.5 bg-slate-950 border border-slate-800 hover:border-emerald-500/50 rounded-2xl transition space-y-2">
+              <div className="p-3.5 bg-canvas border border-border hover:border-success-border rounded-2xl transition space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-                    <span className="text-xs font-bold text-white">Rencana 1 Bulan Penuh ({getMonthName(month)} {year})</span>
+                    <FileSpreadsheet className="w-4 h-4 text-success" />
+                    <span className="text-xs font-bold text-foreground">Rencana 1 Bulan Penuh ({getMonthName(month)} {year})</span>
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-success-subtle text-success border border-success-border font-bold">
                     Rekap W1 - W5
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-muted-foreground">
                   Rekapitulasi target seluruh pekan (Week 1 s/d Week 5) dalam 1 tabel master plus lembar kerja per pekan.
                 </p>
                 <div className="pt-1 flex justify-end">
                   <button
                     type="button"
                     onClick={handleExportFullMonth}
-                    className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-md"
+                    className="px-3.5 py-1.5 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-card"
                   >
                     <FileSpreadsheet className="w-3.5 h-3.5" />
                     <span>Unduh Rekap 1 Bulan Penuh</span>
@@ -1270,11 +1266,11 @@ export const WeeklyPlanManager: React.FC<WeeklyPlanManagerProps> = ({
               </div>
             </div>
 
-            <div className="pt-2 border-t border-slate-800 flex justify-end">
+            <div className="pt-2 border-t border-border flex justify-end">
               <button
                 type="button"
                 onClick={() => setIsExportModalOpen(false)}
-                className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl bg-muted hover:bg-accent text-foreground text-xs font-semibold transition cursor-pointer"
               >
                 Tutup
               </button>

@@ -1,0 +1,141 @@
+/* Hijrahfood design system: the one stylesheet an app imports. */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource/geist-mono/400.css";
+@import "@fontsource/geist-mono/500.css";
+@import "./tokens.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  * {
+    @apply border-border outline-ring;
+  }
+  /* The root keeps the browser's 16px so every rem token renders at its DESIGN.md size. Body text is 14px. */
+  html {
+    @apply bg-canvas font-sans text-foreground antialiased;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply min-h-dvh bg-canvas text-base;
+  }
+  /* One focus ring everywhere: 2px, offset, 3:1 against every surface (WCAG 2.4.7, 2.4.13). */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 22%, transparent);
+  }
+  /* Numbers line up in every table. */
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+  /* Controls tap without the 300ms double-tap-zoom wait. Pinch zoom and scrolling still work. A utility such as touch-none wins. */
+  a[href],
+  button,
+  summary,
+  label,
+  select,
+  input,
+  [role="button"],
+  [role="link"],
+  [role="tab"],
+  [role="switch"],
+  [role="checkbox"],
+  [role="radio"],
+  [role="menuitem"],
+  [role="menuitemcheckbox"],
+  [role="menuitemradio"],
+  [role="option"],
+  [role="combobox"],
+  [role="slider"] {
+    touch-action: manipulation;
+  }
+  /* Sticky headers must not hide the focused element (WCAG 2.4.11). */
+  html {
+    scroll-padding-top: var(--app-header-height, 0px);
+  }
+}
+
+/* Motion: returns to rest, never freezes mid-frame. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Touch target size in px, so it stays 44px even if an app changes the root font size. */
+:root {
+  --touch-size: 44px;
+}
+
+/* Touch: expand the hit area of small controls to 44px without changing their look.
+   `position: relative` sits in :where() (specificity 0) so `absolute`, `fixed` and `sticky` on the same element always win.
+   --touch-min-w and --touch-min-h set the target per axis. A group of controls that touch each other sets one of them
+   to 0px (for example `[--touch-min-w:0px]`) so the pseudo-element never grows into a neighbour. */
+@utility touch-target {
+  :where(&) {
+    position: relative;
+  }
+  @media (pointer: coarse) {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: max(100%, var(--touch-min-w, var(--touch-size)));
+      height: max(100%, var(--touch-min-h, var(--touch-size)));
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+/* One axis only, for controls whose neighbours leave no room on the other axis. */
+@utility touch-target-y {
+  :where(&) {
+    position: relative;
+  }
+  @media (pointer: coarse) {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 100%;
+      height: max(100%, var(--touch-min-h, var(--touch-size)));
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+@utility touch-target-x {
+  :where(&) {
+    position: relative;
+  }
+  @media (pointer: coarse) {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: max(100%, var(--touch-min-w, var(--touch-size)));
+      height: 100%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+/* iOS zooms into inputs under 16px; keep them at 16px on touch devices. */
+@media (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1em);
+  }
+}

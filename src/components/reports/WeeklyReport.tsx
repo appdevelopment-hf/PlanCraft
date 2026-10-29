@@ -14,7 +14,7 @@ import {
   Printer, 
   FileSpreadsheet,
   Calendar
-} from 'lucide-react';
+} from '@/components/icons';
 
 interface WeeklyReportProps {
   plan: WeeklyProductionPlan;
@@ -197,19 +197,19 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
   return (
     <div className="space-y-4 pb-24">
       {/* Period Filter: Bulan Kebutuhan & Week 1 - 5 */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-3">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-          <div className="flex items-center space-x-2 text-xs font-semibold text-slate-200">
-            <Calendar className="w-4 h-4 text-rose-500" />
+          <div className="flex items-center space-x-2 text-xs font-semibold text-foreground">
+            <Calendar className="w-4 h-4 text-link" />
             <span>Pilih Periode Laporan Mingguan:</span>
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-[11px] text-slate-400 font-medium">Bulan Kebutuhan:</span>
+            <span className="text-[11px] text-muted-foreground font-medium">Bulan Kebutuhan:</span>
             <select
               value={selectedMonth}
               onChange={(e) => handlePeriodChange(Number(e.target.value), selectedWeek)}
-              className="bg-black border border-slate-800 focus:border-slate-700 text-white rounded-xl px-2.5 py-1.5 text-xs font-semibold focus:outline-none cursor-pointer"
+              className="bg-background border border-input focus-visible:border-ring text-foreground rounded-xl px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
             >
               {MONTH_NAMES.map((mName, idx) => (
                 <option key={mName} value={idx + 1}>
@@ -236,10 +236,10 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
                 onClick={() => handlePeriodChange(selectedMonth, w)}
                 className={`py-2 px-1.5 rounded-xl text-xs font-bold transition flex flex-col items-center justify-center border cursor-pointer ${
                   isSelected
-                    ? 'bg-rose-600 text-white border-rose-500 shadow-md shadow-rose-950/40'
+                    ? 'bg-primary text-primary-foreground border-primary shadow-card '
                     : hasPlan
-                    ? 'bg-slate-950 hover:bg-slate-800 text-slate-200 border-slate-800'
-                    : 'bg-slate-950/50 hover:bg-slate-900 text-slate-500 border-slate-900'
+                    ? 'bg-canvas hover:bg-muted text-foreground border-border'
+                    : 'bg-canvas hover:bg-card text-subtle-foreground border-border'
                 }`}
               >
                 <span>Week {w}</span>
@@ -252,36 +252,36 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
         </div>
 
         {/* Period Status Banner */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] bg-slate-950/70 px-3 py-2 rounded-xl border border-slate-800/80 gap-1.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] bg-canvas px-3 py-2 rounded-xl border border-border gap-1.5">
           <div className="flex items-center space-x-2">
-            <span className="text-slate-400">Laporan Pekan Terpilih:</span>
-            <span className="font-bold text-white">
+            <span className="text-muted-foreground">Laporan Pekan Terpilih:</span>
+            <span className="font-bold text-foreground">
               {getMonthName(selectedMonth)} • Week {selectedWeek}
             </span>
             {isMatchedPlan ? (
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-success-subtle text-success font-bold">
                 {currentPlan?.status === 'active' ? 'Aktif' : 'Tersedia'}
               </span>
             ) : (
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 font-bold">
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-warning-subtle text-warning font-bold">
                 Plan Belum Dibuat
               </span>
             )}
           </div>
-          <span className="text-[10px] text-slate-400">
+          <span className="text-[10px] text-muted-foreground">
             {currentPlan ? `${currentPlan.start_date} s/d ${currentPlan.end_date}` : 'Belum ada rencana produksi untuk minggu ini'}
           </span>
         </div>
       </div>
 
       {/* Title & Actions */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col @min-[640px]:flex-row @min-[640px]:items-center justify-between gap-3">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card flex flex-col @min-[640px]:flex-row @min-[640px]:items-center justify-between gap-3">
         <div>
-          <h1 className="text-base @min-[640px]:text-lg font-bold text-white flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-rose-500" />
+          <h1 className="text-base @min-[640px]:text-lg font-bold text-foreground flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-link" />
             Rekap & Laporan Evaluasi Mingguan
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             Bulan {getMonthName(selectedMonth)} {planYear} • Minggu Ke-{selectedWeek} {currentPlan ? `(${currentPlan.start_date} s/d ${currentPlan.end_date})` : ''}
           </p>
         </div>
@@ -289,14 +289,14 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
         <div className="flex items-center space-x-2">
           <button
             onClick={handleExportCSV}
-            className="flex-1 @min-[640px]:flex-none px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition active:scale-95 flex items-center justify-center gap-1.5 shadow-md shadow-emerald-950/30"
+            className="flex-1 @min-[640px]:flex-none px-3.5 py-2 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground font-semibold text-xs transition active:scale-95 flex items-center justify-center gap-1.5 shadow-card "
           >
             <FileSpreadsheet className="w-4 h-4" />
             <span>Export Excel (CSV)</span>
           </button>
           <button
             onClick={() => window.print()}
-            className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition active:scale-95 flex items-center gap-1.5"
+            className="px-3 py-2 rounded-xl bg-muted hover:bg-accent text-foreground font-semibold text-xs transition active:scale-95 flex items-center gap-1.5"
             title="Cetak Halaman"
           >
             <Printer className="w-4 h-4" />
@@ -306,28 +306,28 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
 
       {/* KPI Cards (Tanpa Susut & Tanpa Yield) */}
       <div className="grid grid-cols-2 @min-[640px]:grid-cols-4 gap-2.5">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3">
-          <p className="text-[11px] text-slate-400">Target Pekan</p>
-          <p className="text-lg font-black text-white mt-0.5">
-            {formatKg(effectiveSummary.total_target_kg)} <span className="text-xs font-normal text-slate-400">Kg</span>
+        <div className="bg-card border border-border rounded-2xl p-3">
+          <p className="text-[11px] text-muted-foreground">Target Pekan</p>
+          <p className="text-lg font-black text-foreground mt-0.5">
+            {formatKg(effectiveSummary.total_target_kg)} <span className="text-xs font-normal text-muted-foreground">Kg</span>
           </p>
         </div>
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3">
-          <p className="text-[11px] text-slate-400">Aktual Hasil Jadi</p>
-          <p className="text-lg font-black text-emerald-400 mt-0.5">
-            {formatKg(effectiveSummary.total_actual_kg)} <span className="text-xs font-normal text-slate-400">Kg</span>
+        <div className="bg-card border border-border rounded-2xl p-3">
+          <p className="text-[11px] text-muted-foreground">Aktual Hasil Jadi</p>
+          <p className="text-lg font-black text-success mt-0.5">
+            {formatKg(effectiveSummary.total_actual_kg)} <span className="text-xs font-normal text-muted-foreground">Kg</span>
           </p>
         </div>
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3">
-          <p className="text-[11px] text-slate-400">Selisih Deviasi</p>
-          <p className={`text-lg font-black mt-0.5 ${totalDiff >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
-            {totalDiff >= 0 ? `+${formatKg(totalDiff)}` : formatKg(totalDiff)} <span className="text-xs font-normal text-slate-400">Kg</span>
+        <div className="bg-card border border-border rounded-2xl p-3">
+          <p className="text-[11px] text-muted-foreground">Selisih Deviasi</p>
+          <p className={`text-lg font-black mt-0.5 ${totalDiff >= 0 ? 'text-success' : 'text-link'}`}>
+            {totalDiff >= 0 ? `+${formatKg(totalDiff)}` : formatKg(totalDiff)} <span className="text-xs font-normal text-muted-foreground">Kg</span>
           </p>
         </div>
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3">
-          <p className="text-[11px] text-slate-400">Pencapaian %</p>
+        <div className="bg-card border border-border rounded-2xl p-3">
+          <p className="text-[11px] text-muted-foreground">Pencapaian %</p>
           <p className={`text-lg font-black mt-0.5 ${
-            effectiveSummary.achievement_rate >= 95 ? 'text-emerald-400' : effectiveSummary.achievement_rate >= 80 ? 'text-amber-400' : 'text-rose-400'
+            effectiveSummary.achievement_rate >= 95 ? 'text-success' : effectiveSummary.achievement_rate >= 80 ? 'text-warning' : 'text-link'
           }`}>
             {formatPercent(effectiveSummary.achievement_rate)}
           </p>
@@ -335,32 +335,32 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
       </div>
 
       {/* Daily Matrix Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm overflow-hidden">
-        <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card overflow-hidden">
+        <h2 className="text-xs font-bold text-foreground tracking-wider mb-3">
           Matriks Realisasi Harian Hasil Jadi (Kg)
         </h2>
 
         <div className="overflow-x-auto -mx-4 @min-[640px]:mx-0">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-950/70 text-slate-400">
+              <tr className="border-b border-border bg-canvas text-muted-foreground">
                 <th className="py-2.5 px-3 font-semibold min-w-[150px]">Nama Barang / SKU</th>
                 <th className="py-2.5 px-2 font-semibold text-right">Target (Kg)</th>
                 {weekDates.map(d => (
                   <th key={d.dateStr} className="py-2.5 px-2 font-semibold text-right min-w-[55px]">
                     <div>{d.dayName}</div>
-                    <div className="text-[10px] text-slate-500 font-normal">{d.shortDate}</div>
+                    <div className="text-[10px] text-subtle-foreground font-normal">{d.shortDate}</div>
                   </th>
                 ))}
-                <th className="py-2.5 px-2 font-semibold text-right bg-slate-900/90">Aktual</th>
-                <th className="py-2.5 px-2 font-semibold text-right bg-slate-900/90">Selisih</th>
-                <th className="py-2.5 px-3 font-semibold text-right bg-slate-900/90">% Capaian</th>
+                <th className="py-2.5 px-2 font-semibold text-right bg-card">Aktual</th>
+                <th className="py-2.5 px-2 font-semibold text-right bg-card">Selisih</th>
+                <th className="py-2.5 px-3 font-semibold text-right bg-card">% Capaian</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-border">
               {(!currentPlan || combinedReportItems.length === 0) ? (
                 <tr>
-                  <td colSpan={weekDates.length + 5} className="py-8 text-center text-xs text-slate-500">
+                  <td colSpan={weekDates.length + 5} className="py-8 text-center text-xs text-subtle-foreground">
                     Belum ada target produk atau riwayat produksi yang tercatat pada pekan ini.
                   </td>
                 </tr>
@@ -372,21 +372,21 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
                   const pct = target.target_kg > 0 ? (actual / target.target_kg) * 100 : 0;
 
                   return (
-                    <tr key={target.sku_id} className={`hover:bg-slate-950/40 transition ${target.isUnplanned ? 'bg-amber-950/10' : ''}`}>
-                      <td className="py-2.5 px-3 font-medium text-white">
+                    <tr key={target.sku_id} className={`hover:bg-canvas transition ${target.isUnplanned ? 'bg-warning-subtle' : ''}`}>
+                      <td className="py-2.5 px-3 font-medium text-foreground">
                         <div className="flex items-center gap-1.5 flex-wrap">
                           <span className="truncate font-semibold">{target.sku_name}</span>
                           {target.isUnplanned && (
-                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold whitespace-nowrap">
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-warning-subtle text-warning border border-warning-border font-bold whitespace-nowrap">
                               Tidak Ada di Plan
                             </span>
                           )}
                         </div>
-                        <div className="text-[10px] text-slate-500 font-mono">{target.sku_code}</div>
+                        <div className="text-[10px] text-subtle-foreground font-mono">{target.sku_code}</div>
                       </td>
-                      <td className="py-2.5 px-2 text-right font-bold text-slate-300">
+                      <td className="py-2.5 px-2 text-right font-bold text-foreground">
                         {target.isUnplanned ? (
-                          <span className="text-amber-400/80 font-normal italic">0 Kg</span>
+                          <span className="text-warning/80 font-normal italic">0 Kg</span>
                         ) : (
                           formatKg(target.target_kg)
                         )}
@@ -397,28 +397,28 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
                         const daySum = dayLogs.reduce((acc, l) => acc + l.actual_kg, 0);
                         return (
                           <td key={d.dateStr} className={`py-2.5 px-2 text-right font-medium ${
-                            daySum > 0 ? 'text-slate-200' : 'text-slate-600'
+                            daySum > 0 ? 'text-foreground' : 'text-disabled-foreground'
                           }`}>
                             {daySum > 0 ? formatKg(daySum) : '-'}
                           </td>
                         );
                       })}
 
-                      <td className="py-2.5 px-2 text-right font-bold text-emerald-400 bg-slate-950/30">
+                      <td className="py-2.5 px-2 text-right font-bold text-success bg-canvas">
                         {formatKg(actual)}
                       </td>
-                      <td className={`py-2.5 px-2 text-right font-bold bg-slate-950/30 ${
-                        target.isUnplanned || diff >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                      <td className={`py-2.5 px-2 text-right font-bold bg-canvas ${
+                        target.isUnplanned || diff >= 0 ? 'text-success' : 'text-link'
                       }`}>
                         {target.isUnplanned || diff >= 0 ? `+${formatKg(actual)}` : formatKg(diff)}
                       </td>
-                      <td className="py-2.5 px-3 text-right font-black bg-slate-950/30">
+                      <td className="py-2.5 px-3 text-right font-black bg-canvas">
                         {target.isUnplanned ? (
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-warning-subtle text-warning border border-warning-border font-semibold">
                             Non-Plan
                           </span>
                         ) : (
-                          <span className={pct >= 95 ? 'text-emerald-400' : pct >= 80 ? 'text-amber-400' : 'text-rose-400'}>
+                          <span className={pct >= 95 ? 'text-success' : pct >= 80 ? 'text-warning' : 'text-link'}>
                             {formatPercent(pct)}
                           </span>
                         )}
@@ -433,12 +433,12 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
       </div>
 
       {/* Field Bottlenecks and Log Issues */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
-        <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2.5">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card">
+        <h2 className="text-xs font-bold text-foreground tracking-wider mb-2.5">
           Catatan Lapangan & Kendala
         </h2>
         {planLogs.filter(l => l.notes || (l.bottleneck_reason && l.bottleneck_reason !== 'Normal / Lancar')).length === 0 ? (
-          <p className="text-xs text-slate-500 py-3 text-center">
+          <p className="text-xs text-subtle-foreground py-3 text-center">
             Semua proses produksi berjalan normal tanpa kendala.
           </p>
         ) : (
@@ -446,12 +446,12 @@ export const WeeklyReport: React.FC<WeeklyReportProps> = ({
             {planLogs
               .filter(l => l.notes || (l.bottleneck_reason && l.bottleneck_reason !== 'Normal / Lancar'))
               .map(l => (
-                <div key={l.id} className="bg-slate-950/60 border border-slate-800 rounded-xl p-2.5 text-xs">
-                  <div className="flex items-center justify-between text-slate-400 text-[11px]">
-                    <span className="font-semibold text-white">{l.sku_name} ({l.date})</span>
-                    <span className="text-rose-400 font-medium">{l.bottleneck_reason}</span>
+                <div key={l.id} className="bg-canvas border border-border rounded-xl p-2.5 text-xs">
+                  <div className="flex items-center justify-between text-muted-foreground text-[11px]">
+                    <span className="font-semibold text-foreground">{l.sku_name} ({l.date})</span>
+                    <span className="text-link font-medium">{l.bottleneck_reason}</span>
                   </div>
-                  {l.notes && <p className="text-slate-300 mt-1 italic">&ldquo;{l.notes}&rdquo;</p>}
+                  {l.notes && <p className="text-foreground mt-1 italic">&ldquo;{l.notes}&rdquo;</p>}
                 </div>
               ))}
           </div>

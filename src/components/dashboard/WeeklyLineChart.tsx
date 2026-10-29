@@ -13,7 +13,7 @@ import {
   Activity,
   BarChart2,
   CalendarDays
-} from 'lucide-react';
+} from '@/components/icons';
 
 interface WeeklyLineChartProps {
   plans: WeeklyProductionPlan[];
@@ -269,7 +269,7 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
   const gridSteps = [0, yMax * 0.33, yMax * 0.66, yMax];
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 @min-[640px]:p-5 shadow-sm space-y-4">
+    <div className="bg-card border border-border rounded-2xl p-4 @min-[640px]:p-5 shadow-card space-y-4">
       {/* Header & Controls */}
       <div className="flex flex-col @min-[640px]:flex-row @min-[640px]:items-center justify-between gap-3">
         <div>
@@ -277,21 +277,21 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
             {isDailyMode && onSelectPlanId && (
               <button
                 onClick={() => onSelectPlanId('all')}
-                className="p-1 px-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center space-x-1 transition border border-slate-700"
+                className="p-1 px-2 text-xs font-semibold rounded-lg bg-muted hover:bg-accent text-foreground hover:text-foreground flex items-center space-x-1 transition border border-border-strong"
                 title="Kembali ke tampilan semua pekan"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Semua Pekan</span>
               </button>
             )}
-            <h2 className="text-sm font-bold text-white flex items-center gap-1.5">
-              <TrendingUp className="w-4 h-4 text-emerald-400" />
+            <h2 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+              <TrendingUp className="w-4 h-4 text-success" />
               {isDailyMode
                 ? `Grafik Tren Harian: Week ${activePlan?.week_number} (${activePlan?.start_date.slice(5)} s/d ${activePlan?.end_date.slice(5)})`
                 : `Grafik Tren Produksi Mingguan ${titleSuffix ? `(${titleSuffix})` : ''}`}
             </h2>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             {isDailyMode
               ? dailyViewMode === 'cumulative'
                 ? 'Garis akumulasi target mingguan vs realisasi hasil jadi yang telah tercapai hari demi hari.'
@@ -304,14 +304,14 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
         <div className="flex items-center flex-wrap gap-2 shrink-0">
           {/* Daily View Mode Switcher */}
           {isDailyMode && (
-            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-[11px] font-medium">
+            <div className="flex items-center bg-canvas p-1 rounded-xl border border-border text-[11px] font-medium">
               <button
                 type="button"
                 onClick={() => setDailyViewMode('cumulative')}
                 className={`px-2.5 py-1 rounded-lg transition flex items-center space-x-1 ${
                   dailyViewMode === 'cumulative'
-                    ? 'bg-rose-600 text-white font-bold shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-primary text-primary-foreground font-bold shadow-card'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <Activity className="w-3 h-3" />
@@ -322,8 +322,8 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
                 onClick={() => setDailyViewMode('daily')}
                 className={`px-2.5 py-1 rounded-lg transition flex items-center space-x-1 ${
                   dailyViewMode === 'daily'
-                    ? 'bg-rose-600 text-white font-bold shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-primary text-primary-foreground font-bold shadow-card'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <BarChart2 className="w-3 h-3" />
@@ -333,16 +333,16 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
           )}
 
           {/* Legend Badges */}
-          <div className="flex items-center space-x-3 text-[11px] font-semibold bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
+          <div className="flex items-center space-x-3 text-[11px] font-semibold bg-canvas px-3 py-1.5 rounded-xl border border-border">
             <div className="flex items-center space-x-1.5">
-              <span className="w-4 h-0.5 border-t-2 border-dashed border-rose-500 inline-block" />
-              <span className="text-rose-400">
+              <span className="w-4 h-0.5 border-t-2 border-dashed border-primary inline-block" />
+              <span className="text-link">
                 {isDailyMode && dailyViewMode === 'daily' ? 'Target Harian' : 'Garis Target'}
               </span>
             </div>
             <div className="flex items-center space-x-1.5">
-              <span className="w-4 h-1 bg-emerald-400 rounded-full inline-block" />
-              <span className="text-emerald-400">
+              <span className="w-4 h-1 bg-success rounded-full inline-block" />
+              <span className="text-success">
                 {isDailyMode && dailyViewMode === 'daily' ? 'Hasil Harian' : 'Hasil Jadi'}
               </span>
             </div>
@@ -351,7 +351,7 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
       </div>
 
       {/* Responsive SVG Chart */}
-      <div className="relative overflow-hidden bg-slate-950/90 border border-slate-800 rounded-2xl p-2 pt-4">
+      <div className="relative overflow-hidden bg-canvas border border-border rounded-2xl p-2 pt-4">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
           className="w-full h-auto overflow-visible select-none"
@@ -515,7 +515,7 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
 
         {/* Floating Active Info if node is clicked/hovered */}
         {activeTooltipIndex !== null && (
-          <div className="mt-2 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs animate-in fade-in">
+          <div className="mt-2 bg-card border border-border rounded-xl p-3 text-xs animate-in fade-in">
             {isDailyMode && dailyData[activeTooltipIndex] ? (
               (() => {
                 const item = dailyData[activeTooltipIndex];
@@ -523,11 +523,11 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
-                        <span className="font-bold text-white flex items-center space-x-1">
-                          <Calendar className="w-3.5 h-3.5 text-rose-400" />
+                        <span className="font-bold text-foreground flex items-center space-x-1">
+                          <Calendar className="w-3.5 h-3.5 text-link" />
                           <span>{item.fullLabel}</span>
                           {item.isToday && (
-                            <span className="px-1.5 py-0.2 text-[9px] bg-amber-500/20 text-amber-300 rounded font-bold">
+                            <span className="px-1.5 py-0.2 text-[9px] bg-warning-subtle text-warning rounded font-bold">
                               HARI INI
                             </span>
                           )}
@@ -535,10 +535,10 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
                         <span
                           className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                             item.dayActualKg >= item.dayTargetKg
-                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              ? 'bg-success-subtle text-success border border-success-border'
                               : item.dayActualKg > 0
-                              ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                              : 'bg-slate-800 text-slate-400 border border-slate-700'
+                              ? 'bg-warning-subtle text-warning border border-warning-border'
+                              : 'bg-muted text-muted-foreground border border-border-strong'
                           }`}
                         >
                           {item.dayActualKg >= item.dayTargetKg
@@ -548,20 +548,20 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
                             : 'Belum Ada Hasil Produksi'}
                         </span>
                       </div>
-                      <div className="text-right text-slate-300">
+                      <div className="text-right text-foreground">
                         {dailyViewMode === 'cumulative' ? (
                           <>
                             Target Akumulasi:{' '}
-                            <strong className="text-rose-400">{formatKg(item.cumTargetKg)} Kg</strong> | Realisasi:{' '}
-                            <strong className="text-emerald-400 ml-1">{formatKg(item.cumActualKg)} Kg</strong>{' '}
-                            <span className="ml-1 text-white font-bold">({formatPercent(item.percentCum)})</span>
+                            <strong className="text-link">{formatKg(item.cumTargetKg)} Kg</strong> | Realisasi:{' '}
+                            <strong className="text-success ml-1">{formatKg(item.cumActualKg)} Kg</strong>{' '}
+                            <span className="ml-1 text-foreground font-bold">({formatPercent(item.percentCum)})</span>
                           </>
                         ) : (
                           <>
                             Target Rata-rata:{' '}
-                            <strong className="text-rose-400">{formatKg(item.dayTargetKg)} Kg</strong> | Output:{' '}
-                            <strong className="text-emerald-400 ml-1">{formatKg(item.dayActualKg)} Kg</strong>{' '}
-                            <span className="ml-1 text-white font-bold">({formatPercent(item.percentDaily)})</span>
+                            <strong className="text-link">{formatKg(item.dayTargetKg)} Kg</strong> | Output:{' '}
+                            <strong className="text-success ml-1">{formatKg(item.dayActualKg)} Kg</strong>{' '}
+                            <span className="ml-1 text-foreground font-bold">({formatPercent(item.percentDaily)})</span>
                           </>
                         )}
                       </div>
@@ -569,17 +569,17 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
 
                     {/* Breakdown SKU on that day if any */}
                     {item.dayLogs.length > 0 && (
-                      <div className="pt-1.5 border-t border-slate-800 flex flex-wrap gap-2 text-[11px]">
-                        <span className="text-slate-400 font-medium">Hasil SKU:</span>
+                      <div className="pt-1.5 border-t border-border flex flex-wrap gap-2 text-[11px]">
+                        <span className="text-muted-foreground font-medium">Hasil SKU:</span>
                         {item.dayLogs.map((l) => (
                           <span
                             key={l.id}
-                            className="bg-slate-950 px-2 py-0.5 rounded border border-slate-800 text-slate-300"
+                            className="bg-canvas px-2 py-0.5 rounded border border-border text-foreground"
                           >
                             <strong>{l.sku_name || l.sku_code}:</strong>{' '}
-                            <span className="text-emerald-400 font-bold">{formatKg(l.actual_kg)} Kg</span>
+                            <span className="text-success font-bold">{formatKg(l.actual_kg)} Kg</span>
                             {l.bottleneck_reason && l.bottleneck_reason !== 'Normal / Lancar' && (
-                              <span className="text-amber-400 ml-1">({l.bottleneck_reason})</span>
+                              <span className="text-warning ml-1">({l.bottleneck_reason})</span>
                             )}
                           </span>
                         ))}
@@ -594,23 +594,23 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
                 return (
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <span className="font-bold text-white">
+                      <span className="font-bold text-foreground">
                         Minggu Ke-{w.weekNumber} ({w.dateRange})
                       </span>
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                           w.isAchieved
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                            ? 'bg-success-subtle text-success border border-success-border'
+                            : 'bg-primary/10 text-link border border-primary/30'
                         }`}
                       >
                         {w.isAchieved ? 'Target Tercapai ✅' : 'Belum Tercapai ❌'}
                       </span>
                     </div>
-                    <div className="text-right text-slate-300">
-                      Target: <strong className="text-rose-400">{formatKg(w.targetKg)} Kg</strong> | Hasil Jadi:{' '}
-                      <strong className="text-emerald-400 ml-1">{formatKg(w.actualKg)} Kg</strong>{' '}
-                      <span className="ml-1 text-white font-bold">({formatPercent(w.percent)})</span>
+                    <div className="text-right text-foreground">
+                      Target: <strong className="text-link">{formatKg(w.targetKg)} Kg</strong> | Hasil Jadi:{' '}
+                      <strong className="text-success ml-1">{formatKg(w.actualKg)} Kg</strong>{' '}
+                      <span className="ml-1 text-foreground font-bold">({formatPercent(w.percent)})</span>
                     </div>
                   </div>
                 );
@@ -625,14 +625,14 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
       {/* ------------------------------------------------------------- */}
       {isDailyMode ? (
         <div className="space-y-1.5">
-          <div className="flex items-center justify-between text-xs text-slate-400 px-0.5">
-            <span className="font-semibold text-slate-300 flex items-center space-x-1">
-              <CalendarDays className="w-3.5 h-3.5 text-rose-400" />
+          <div className="flex items-center justify-between text-xs text-muted-foreground px-0.5">
+            <span className="font-semibold text-foreground flex items-center space-x-1">
+              <CalendarDays className="w-3.5 h-3.5 text-link" />
               <span>Rincian Hasil per Hari ({dailyData.length} Hari)</span>
             </span>
-            <span className="text-[11px] text-slate-500">
+            <span className="text-[11px] text-subtle-foreground">
               Target Rata-rata:{' '}
-              <strong className="text-rose-400">
+              <strong className="text-link">
                 {formatKg(dailyData[0]?.dayTargetKg || 0)} Kg/hari
               </strong>
             </span>
@@ -650,36 +650,36 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
                   onClick={() => setActiveTooltipIndex(idx)}
                   className={`p-2.5 rounded-xl border transition cursor-pointer ${
                     isSelected
-                      ? 'bg-rose-950/30 border-rose-500 ring-2 ring-rose-500/40 text-white'
+                      ? 'bg-primary/10 border-primary ring-2 ring-primary/30 text-foreground'
                       : isTargetMet
-                      ? 'bg-emerald-950/20 border-emerald-900/40 text-emerald-300 hover:border-emerald-700/60'
+                      ? 'bg-success-subtle border-success-border text-success hover:border-success-border'
                       : hasOutput
-                      ? 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'
-                      : 'bg-slate-950/40 border-slate-900 text-slate-500 hover:border-slate-800'
+                      ? 'bg-canvas border-border text-foreground hover:border-border-strong'
+                      : 'bg-canvas border-border text-subtle-foreground hover:border-border'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`text-xs font-bold ${d.isToday ? 'text-amber-400' : 'text-white'}`}>
+                    <span className={`text-xs font-bold ${d.isToday ? 'text-warning' : 'text-foreground'}`}>
                       {d.dayName} {d.shortDate}
                     </span>
                     {isTargetMet ? (
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-success" />
                     ) : hasOutput ? (
-                      <Clock className="w-3.5 h-3.5 text-amber-400" />
+                      <Clock className="w-3.5 h-3.5 text-warning" />
                     ) : (
-                      <AlertCircle className="w-3.5 h-3.5 text-slate-600" />
+                      <AlertCircle className="w-3.5 h-3.5 text-disabled-foreground" />
                     )}
                   </div>
 
                   <div className="mt-1">
-                    <div className="text-[11px] font-extrabold text-white">
-                      {formatKg(d.dayActualKg)} <span className="text-[9px] font-normal text-slate-400">Kg</span>
+                    <div className="text-[11px] font-extrabold text-foreground">
+                      {formatKg(d.dayActualKg)} <span className="text-[9px] font-normal text-muted-foreground">Kg</span>
                     </div>
-                    <div className="text-[10px] text-slate-400 mt-0.5 flex items-center justify-between">
+                    <div className="text-[10px] text-muted-foreground mt-0.5 flex items-center justify-between">
                       <span>Target: {formatKg(d.dayTargetKg)}</span>
                       <span
                         className={`font-bold ${
-                          isTargetMet ? 'text-emerald-400' : hasOutput ? 'text-amber-400' : 'text-slate-500'
+                          isTargetMet ? 'text-success' : hasOutput ? 'text-warning' : 'text-subtle-foreground'
                         }`}
                       >
                         {formatPercent(d.percentDaily)}
@@ -706,44 +706,44 @@ export const WeeklyLineChart: React.FC<WeeklyLineChartProps> = ({
                 }}
                 className={`p-2.5 rounded-xl border transition cursor-pointer ${
                   isSelected
-                    ? 'bg-rose-950/30 border-rose-500 ring-2 ring-rose-500/40 text-white'
+                    ? 'bg-primary/10 border-primary ring-2 ring-primary/30 text-foreground'
                     : d.isAchieved
-                    ? 'bg-emerald-950/20 border-emerald-900/40 text-emerald-300 hover:border-emerald-700/60'
+                    ? 'bg-success-subtle border-success-border text-success hover:border-success-border'
                     : d.actualKg > 0
-                    ? 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'
-                    : 'bg-slate-950/40 border-slate-900 text-slate-500 hover:border-slate-800'
+                    ? 'bg-canvas border-border text-foreground hover:border-border-strong'
+                    : 'bg-canvas border-border text-subtle-foreground hover:border-border'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className={`text-xs font-bold ${isSelected ? 'text-rose-400' : 'text-white'}`}>
+                  <span className={`text-xs font-bold ${isSelected ? 'text-link' : 'text-foreground'}`}>
                     {d.label} {isSelected && '• Terpilih'}
                   </span>
                   {d.isAchieved ? (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-success" />
                   ) : d.status === 'active' ? (
-                    <Clock className="w-3.5 h-3.5 text-amber-400" />
+                    <Clock className="w-3.5 h-3.5 text-warning" />
                   ) : (
-                    <AlertCircle className="w-3.5 h-3.5 text-slate-500" />
+                    <AlertCircle className="w-3.5 h-3.5 text-subtle-foreground" />
                   )}
                 </div>
 
                 <div className="mt-1">
-                  <div className="text-[10px] text-slate-400">
+                  <div className="text-[10px] text-muted-foreground">
                     {formatKg(d.actualKg)} / {formatKg(d.targetKg)} Kg
                   </div>
                   <div className="text-xs font-extrabold mt-0.5 flex items-center justify-between">
                     <span
                       className={
                         d.isAchieved
-                          ? 'text-emerald-400'
+                          ? 'text-success'
                           : d.percent >= 80
-                          ? 'text-amber-400'
-                          : 'text-rose-400'
+                          ? 'text-warning'
+                          : 'text-link'
                       }
                     >
                       {formatPercent(d.percent)}
                     </span>
-                    <span className="text-[9px] uppercase font-semibold text-slate-400">
+                    <span className="text-[9px] font-semibold text-muted-foreground">
                       Lihat Harian →
                     </span>
                   </div>

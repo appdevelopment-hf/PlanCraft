@@ -24,7 +24,7 @@ import {
   Upload,
   Calendar,
   Check
-} from 'lucide-react';
+} from '@/components/icons';
 import { parseExcelFile, downloadExcelTemplate, ExcelImportRow } from '@/lib/excelHelper';
 
 interface QuickInputFormProps {
@@ -312,13 +312,13 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
   return (
     <div className="space-y-4 pb-24">
       {/* Title Card */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-base @min-[640px]:text-lg font-bold text-white flex items-center gap-2">
-            <Scale className="w-5 h-5 text-rose-500" />
+          <h1 className="text-base @min-[640px]:text-lg font-bold text-foreground flex items-center gap-2">
+            <Scale className="w-5 h-5 text-link" />
             Input Hasil Produksi Jadi
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             Pilih barang/SKU, lalu masukkan total berat hasil jadi (Kg) yang ditimbang.
           </p>
         </div>
@@ -326,7 +326,7 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
         <button
           type="button"
           onClick={() => setIsImportModalOpen(true)}
-          className="px-3 py-2 rounded-xl bg-emerald-600/90 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-md shadow-emerald-950/40 cursor-pointer self-start sm:self-auto"
+          className="px-3 py-2 rounded-xl bg-success-subtle hover:bg-success text-foreground text-xs font-bold transition flex items-center space-x-1.5 shadow-card cursor-pointer self-start sm:self-auto"
         >
           <FileSpreadsheet className="w-4 h-4" />
           <span>Import Excel Hasil</span>
@@ -334,21 +334,21 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
       </div>
 
       {successMsg && (
-        <div className="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 rounded-2xl p-3.5 flex items-center space-x-2 text-xs font-semibold animate-in fade-in slide-in-from-top duration-300">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+        <div className="bg-success-subtle border border-success-border text-success rounded-2xl p-3.5 flex items-center space-x-2 text-xs font-semibold animate-in fade-in slide-in-from-top duration-300">
+          <CheckCircle2 className="w-5 h-5 text-success shrink-0" />
           <span>{successMsg}</span>
         </div>
       )}
 
       {/* Main Input Form */}
-      <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-800 rounded-2xl p-4 @min-[640px]:p-5 shadow-lg space-y-4">
+      <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-4 @min-[640px]:p-5 shadow-pop space-y-4">
         {/* Date Selector & Auto-detected Week */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-xs font-semibold text-slate-300">
+            <label className="block text-xs font-semibold text-foreground">
               Tanggal Produksi
             </label>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-success-subtle text-success border border-success-border font-medium">
               Bisa Pilih Tanggal (Termasuk Back-Date)
             </span>
           </div>
@@ -357,20 +357,20 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none transition cursor-pointer"
+              className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3.5 py-2.5 text-xs text-foreground transition cursor-pointer"
             />
           </div>
 
           {/* Indikator Otomatis Masuk ke Week Mana */}
-          <div className="mt-1.5 flex items-center justify-between text-xs bg-slate-950 px-3 py-2 rounded-xl border border-slate-800">
+          <div className="mt-1.5 flex items-center justify-between text-xs bg-canvas px-3 py-2 rounded-xl border border-border">
             <div className="flex items-center space-x-2">
-              <Calendar className="w-3.5 h-3.5 text-rose-400 shrink-0" />
-              <span className="text-slate-400">Otomatis masuk ke:</span>
-              <span className="font-bold text-white">
+              <Calendar className="w-3.5 h-3.5 text-link shrink-0" />
+              <span className="text-muted-foreground">Otomatis masuk ke:</span>
+              <span className="font-bold text-foreground">
                 Week {activePlanForDate.week_number} • {activePlanForDate.title}
               </span>
             </div>
-            <span className="text-[10px] text-slate-400 font-mono">
+            <span className="text-[10px] text-muted-foreground font-mono">
               {activePlanForDate.start_date.slice(5)} s/d {activePlanForDate.end_date.slice(5)}
             </span>
           </div>
@@ -378,24 +378,24 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
 
         {/* SKU Selector / Autocomplete */}
         <div>
-          <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+          <label className="block text-xs font-semibold text-foreground mb-1.5">
             Nama Barang / SKU
           </label>
 
           {selectedSku ? (
-            <div className="bg-slate-950 border border-rose-500/40 rounded-xl p-3 flex items-center justify-between">
+            <div className="bg-canvas border border-primary/30 rounded-xl p-3 flex items-center justify-between">
               <div className="min-w-0 pr-2">
                 <div className="flex items-center space-x-1.5">
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-card text-foreground border border-border">
                     {selectedSku.code}
                   </span>
                   {selectedSku.targetKg && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-link border border-primary/30">
                       Target: {formatKg(selectedSku.targetKg)} Kg
                     </span>
                   )}
                 </div>
-                <h3 className="text-xs font-bold text-white mt-1 truncate">
+                <h3 className="text-xs font-bold text-foreground mt-1 truncate">
                   {selectedSku.name}
                 </h3>
               </div>
@@ -405,15 +405,15 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                   setSelectedSku(null);
                   setSearchQuery('');
                 }}
-                className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer shrink-0"
+                className="p-1.5 rounded-lg bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition cursor-pointer shrink-0"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
           ) : (
             <div className="relative">
-              <div className="flex items-center bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5">
-                <Search className="w-4 h-4 text-slate-500 mr-2 shrink-0" />
+              <div className="flex items-center bg-canvas border border-border rounded-xl px-3.5 py-2.5">
+                <Search className="w-4 h-4 text-subtle-foreground mr-2 shrink-0" />
                 <input
                   type="text"
                   placeholder="Ketik kode SKU atau nama barang untuk memilih..."
@@ -447,13 +447,13 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                       }
                     }
                   }}
-                  className="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none"
+                  className="w-full bg-transparent text-xs text-foreground placeholder-subtle-foreground "
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="p-1 text-slate-500 hover:text-white rounded transition"
+                    className="p-1 text-subtle-foreground hover:text-foreground rounded transition"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -466,12 +466,11 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                     className="fixed inset-0 z-20"
                     onClick={() => setIsDropdownOpen(false)}
                   />
-                  <div 
-                    style={{ backgroundColor: '#050505', borderColor: '#1e293b' }}
-                    className="absolute z-30 left-0 right-0 top-full mt-1 border rounded-xl shadow-2xl max-h-56 overflow-y-auto divide-y divide-slate-900"
+                  <div
+                    className="bg-card border-border absolute z-30 left-0 right-0 top-full mt-1 border rounded-xl shadow-pop max-h-56 overflow-y-auto divide-y divide-border"
                   >
                     {filteredOptions.length === 0 ? (
-                      <div className="p-3 text-xs text-slate-400 text-center space-y-2">
+                      <div className="p-3 text-xs text-muted-foreground text-center space-y-2">
                         <p>Tidak ada barang yang cocok dalam master.</p>
                         {searchQuery.trim() && (
                           <button
@@ -485,7 +484,7 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                               setIsDropdownOpen(false);
                               setSearchQuery('');
                             }}
-                            className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs inline-flex items-center gap-1.5 cursor-pointer shadow-md"
+                            className="px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-xs inline-flex items-center gap-1.5 cursor-pointer shadow-card"
                           >
                             <Plus className="w-3.5 h-3.5" />
                             <span>Gunakan "{searchQuery.trim()}" (Input Manual)</span>
@@ -508,27 +507,27 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                               setIsDropdownOpen(false);
                               setSearchQuery('');
                             }}
-                            className="w-full text-left p-2.5 hover:bg-slate-900 transition flex items-center justify-between group cursor-pointer"
+                            className="w-full text-left p-2.5 hover:bg-card transition flex items-center justify-between group cursor-pointer"
                           >
                             <div className="min-w-0 pr-2">
                               <div className="flex items-center space-x-1.5">
-                                <span className="text-[10px] font-mono px-1 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">
+                                <span className="text-[10px] font-mono px-1 py-0.5 rounded bg-card text-muted-foreground border border-border">
                                   {opt.code}
                                 </span>
-                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">
+                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-card text-muted-foreground border border-border">
                                   {opt.category}
                                 </span>
                                 {opt.isInPlan && (
-                                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/20">
+                                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-success-subtle text-success font-bold border border-success-border">
                                     Target Plan W{plan.week_number}
                                   </span>
                                 )}
                               </div>
-                              <p className="text-xs font-semibold text-slate-200 group-hover:text-white mt-1 truncate">
+                              <p className="text-xs font-semibold text-foreground group-hover:text-foreground mt-1 truncate">
                                 {opt.name}
                               </p>
                             </div>
-                            <Plus className="w-4 h-4 text-slate-600 group-hover:text-rose-400 shrink-0" />
+                            <Plus className="w-4 h-4 text-disabled-foreground group-hover:text-link shrink-0" />
                           </button>
                         ))}
 
@@ -544,10 +543,10 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                               setIsDropdownOpen(false);
                               setSearchQuery('');
                             }}
-                            className="w-full text-left p-2.5 hover:bg-slate-900 bg-slate-950/60 border-t border-slate-800 transition flex items-center justify-between text-xs text-rose-400 font-semibold cursor-pointer"
+                            className="w-full text-left p-2.5 hover:bg-card bg-canvas border-t border-border transition flex items-center justify-between text-xs text-link font-semibold cursor-pointer"
                           >
                             <span>Gunakan input manual: "<strong>{searchQuery.trim()}</strong>"</span>
-                            <Plus className="w-4 h-4 text-rose-400 shrink-0" />
+                            <Plus className="w-4 h-4 text-link shrink-0" />
                           </button>
                         )}
                       </>
@@ -561,7 +560,7 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
 
         {/* Input Berat Hasil Jadi (Kg) */}
         <div>
-          <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+          <label className="block text-xs font-semibold text-foreground mb-1.5">
             Total Berat Hasil Jadi (Kg)
           </label>
           <div className="relative">
@@ -572,9 +571,9 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
               placeholder="0.0"
               value={actualKg}
               onChange={(e) => setActualKg(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-4 py-3 text-lg font-black text-emerald-400 placeholder-slate-600 focus:outline-none"
+              className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-4 py-3 text-lg font-black text-success placeholder-disabled-foreground "
             />
-            <span className="absolute right-4 top-3.5 text-xs text-slate-500 font-bold">
+            <span className="absolute right-4 top-3.5 text-xs text-subtle-foreground font-bold">
               Kg
             </span>
           </div>
@@ -582,7 +581,7 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
 
         {/* Catatan Kendala */}
         <div>
-          <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+          <label className="block text-xs font-semibold text-foreground mb-1.5">
             Status Kendala / Catatan Shift
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mb-2">
@@ -593,8 +592,8 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                 onClick={() => setBottleneck(tag)}
                 className={`py-1.5 px-2 text-left text-[11px] rounded-lg border transition truncate cursor-pointer ${
                   bottleneck === tag
-                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 font-bold'
-                    : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'
+                    ? 'bg-primary/10 text-link border-primary/30 font-bold'
+                    : 'bg-canvas text-muted-foreground border-border hover:border-border-strong'
                 }`}
               >
                 {tag}
@@ -607,14 +606,14 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
             placeholder="Catatan tambahan (opsional)..."
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none"
+            className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3 py-2 text-xs text-foreground placeholder-disabled-foreground "
           />
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-950/40 active:scale-[0.98] transition flex items-center justify-center space-x-2 cursor-pointer"
+          className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-sm shadow-pop active:scale-[0.98] transition flex items-center justify-center space-x-2 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Simpan Hasil Produksi</span>
@@ -622,24 +621,24 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
       </form>
 
       {/* History Log Section */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-3">
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-card space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Clock className="w-4 h-4 text-rose-500" />
-            <h2 className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+            <Clock className="w-4 h-4 text-link" />
+            <h2 className="text-xs font-bold text-foreground tracking-wider">
               Riwayat Hasil Jadi (Week {activePlanForDate.week_number})
             </h2>
           </div>
 
           {/* Filter Riwayat */}
-          <div className="flex items-center space-x-1 text-[11px] bg-slate-950 p-1 rounded-xl border border-slate-800">
+          <div className="flex items-center space-x-1 text-[11px] bg-canvas p-1 rounded-xl border border-border">
             <button
               type="button"
               onClick={() => setHistoryFilter('plan')}
               className={`px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${
                 historyFilter === 'plan'
-                  ? 'bg-rose-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-primary text-primary-foreground shadow-card'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               Week {activePlanForDate.week_number}
@@ -649,8 +648,8 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
               onClick={() => setHistoryFilter('selected')}
               className={`px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${
                 historyFilter === 'selected'
-                  ? 'bg-rose-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-primary text-primary-foreground shadow-card'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               Tanggal Ini
@@ -660,8 +659,8 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
               onClick={() => setHistoryFilter('all')}
               className={`px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${
                 historyFilter === 'all'
-                  ? 'bg-rose-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-primary text-primary-foreground shadow-card'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               Semua
@@ -670,7 +669,7 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
         </div>
 
         {displayedLogs.length === 0 ? (
-          <p className="text-xs text-slate-500 text-center py-6">
+          <p className="text-xs text-subtle-foreground text-center py-6">
             Belum ada riwayat hasil produksi yang tercatat.
           </p>
         ) : (
@@ -678,38 +677,38 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
             {displayedLogs.map((log) => (
               <div
                 key={log.id}
-                className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 flex items-center justify-between hover:border-slate-700 transition"
+                className="bg-canvas border border-border rounded-xl p-3 flex items-center justify-between hover:border-border-strong transition"
               >
                 <div className="min-w-0 pr-2">
                   <div className="flex items-center space-x-1.5">
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-card text-foreground border border-border">
                       {log.sku_code}
                     </span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800 flex items-center gap-1">
-                      <Calendar className="w-2.5 h-2.5 text-rose-400" />
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-card text-muted-foreground border border-border flex items-center gap-1">
+                      <Calendar className="w-2.5 h-2.5 text-link" />
                       {log.date}
                     </span>
                     {!plannedSkuIdSet.has(log.sku_id) && (
-                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-warning-subtle text-warning border border-warning-border font-semibold">
                         Tidak Ada di Plan
                       </span>
                     )}
                   </div>
-                  <h3 className="text-xs font-bold text-white mt-1 truncate">
+                  <h3 className="text-xs font-bold text-foreground mt-1 truncate">
                     {log.sku_name}
                   </h3>
-                  <div className="flex items-center space-x-3 text-[11px] text-slate-400 mt-0.5">
+                  <div className="flex items-center space-x-3 text-[11px] text-muted-foreground mt-0.5">
                     <span>
-                      Hasil Jadi: <strong className="text-emerald-400 font-bold">{formatKg(log.actual_kg)} Kg</strong>
+                      Hasil Jadi: <strong className="text-success font-bold">{formatKg(log.actual_kg)} Kg</strong>
                     </span>
                   </div>
                   {log.bottleneck_reason && log.bottleneck_reason !== 'Normal / Lancar' && (
-                    <div className="mt-1 text-[10px] text-rose-400">
+                    <div className="mt-1 text-[10px] text-link">
                       Kendala: {log.bottleneck_reason}
                     </div>
                   )}
                   {log.notes && (
-                    <p className="text-[10px] text-slate-500 mt-0.5 italic truncate">
+                    <p className="text-[10px] text-subtle-foreground mt-0.5 italic truncate">
                       &ldquo;{log.notes}&rdquo;
                     </p>
                   )}
@@ -724,7 +723,7 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                       }
                     }}
                     title="Hapus entri ini (Admin)"
-                    className="p-2 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition shrink-0 cursor-pointer"
+                    className="p-2 text-subtle-foreground hover:text-link hover:bg-primary/10 rounded-lg transition shrink-0 cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -737,17 +736,17 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
 
       {/* Modal Import Excel Hasil Jadi */}
       {isImportModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-5 space-y-4 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-card border border-border rounded-3xl max-w-lg w-full p-5 space-y-4 shadow-pop overflow-hidden max-h-[90vh] flex flex-col">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center space-x-2">
-                <FileSpreadsheet className="w-5 h-5 text-emerald-400" />
-                <h3 className="text-sm font-bold text-white">Import Hasil Produksi dari Excel</h3>
+                <FileSpreadsheet className="w-5 h-5 text-success" />
+                <h3 className="text-sm font-bold text-foreground">Import Hasil Produksi dari Excel</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsImportModalOpen(false)}
-                className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition cursor-pointer"
+                className="p-1 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -755,17 +754,17 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
 
             <div className="space-y-3 overflow-y-auto flex-1 pr-1">
               {/* Template Info & Download */}
-              <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
+              <div className="p-3 bg-canvas border border-border rounded-xl flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-semibold text-slate-200">Format Kolom Template:</p>
-                  <p className="text-[11px] text-slate-400 font-mono mt-0.5">sku • nama barang • qty KG</p>
+                  <p className="text-xs font-semibold text-foreground">Format Kolom Template:</p>
+                  <p className="text-[11px] text-muted-foreground font-mono mt-0.5">sku • nama barang • qty KG</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => downloadExcelTemplate('production', skus)}
-                  className="px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
+                  className="px-2.5 py-1.5 rounded-lg bg-card hover:bg-muted border border-border-strong text-foreground text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5 text-emerald-400" />
+                  <Download className="w-3.5 h-3.5 text-success" />
                   <span>Unduh Template</span>
                 </button>
               </div>
@@ -773,27 +772,27 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
               {/* Tanggal Hasil Produksi untuk batch import */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+                  <label className="block text-[11px] font-semibold text-muted-foreground mb-1">
                     Tanggal Hasil Produksi
                   </label>
                   <input
                     type="date"
                     value={importDate}
                     onChange={(e) => setImportDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none cursor-pointer"
+                    className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3 py-2 text-xs text-foreground cursor-pointer"
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">
-                    Masuk ke: <strong className="text-white">Week {importPlanForDate.week_number}</strong> ({importPlanForDate.start_date.slice(5)} - {importPlanForDate.end_date.slice(5)})
+                  <p className="text-[10px] text-muted-foreground mt-1">
+                    Masuk ke: <strong className="text-foreground">Week {importPlanForDate.week_number}</strong> ({importPlanForDate.start_date.slice(5)} - {importPlanForDate.end_date.slice(5)})
                   </p>
                 </div>
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+                  <label className="block text-[11px] font-semibold text-muted-foreground mb-1">
                     Status Kendala / Catatan
                   </label>
                   <select
                     value={importBottleneck}
                     onChange={(e) => setImportBottleneck(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none cursor-pointer"
+                    className="w-full bg-canvas border border-border focus-visible:border-ring rounded-xl px-3 py-2 text-xs text-foreground cursor-pointer"
                   >
                     {COMMON_BOTTLENECK_TAGS.map(t => (
                       <option key={t} value={t}>{t}</option>
@@ -803,7 +802,7 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
               </div>
 
               {/* Upload Input */}
-              <div className="border-2 border-dashed border-slate-800 hover:border-slate-700 rounded-2xl p-4 text-center bg-slate-950/60 transition">
+              <div className="border-2 border-dashed border-border hover:border-border-strong rounded-2xl p-4 text-center bg-canvas transition">
                 <input
                   type="file"
                   id="excelImportProdInput"
@@ -815,19 +814,19 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                   htmlFor="excelImportProdInput"
                   className="cursor-pointer flex flex-col items-center justify-center space-y-2"
                 >
-                  <Upload className="w-7 h-7 text-emerald-400" />
-                  <span className="text-xs font-bold text-white">
+                  <Upload className="w-7 h-7 text-success" />
+                  <span className="text-xs font-bold text-foreground">
                     {importFile ? importFile.name : 'Pilih File Excel (.xlsx, .xls, .csv)'}
                   </span>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-subtle-foreground">
                     Klik untuk memilih atau drag and drop file di sini
                   </span>
                 </label>
               </div>
 
               {importError && (
-                <div className="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl flex items-center space-x-2 text-rose-300 text-xs">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+                <div className="p-3 bg-primary/10 border border-primary/30 rounded-xl flex items-center space-x-2 text-link text-xs">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-link" />
                   <span>{importError}</span>
                 </div>
               )}
@@ -836,32 +835,32 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
               {importRows.length > 0 && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-300">
+                    <span className="font-bold text-foreground">
                       Preview Data ({importRows.filter(r => r.isValid).length} baris valid)
                     </span>
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[11px] text-muted-foreground">
                       Total: {importRows.reduce((acc, r) => acc + (r.isValid ? r.qty : 0), 0).toLocaleString('id-ID')} Kg
                     </span>
                   </div>
 
-                  <div className="max-h-40 overflow-y-auto border border-slate-800 rounded-xl divide-y divide-slate-800/60 bg-slate-950">
+                  <div className="max-h-40 overflow-y-auto border border-border rounded-xl divide-y divide-border bg-canvas">
                     {importRows.map((row, idx) => (
                       <div key={idx} className="p-2 flex items-center justify-between text-xs">
                         <div className="min-w-0 pr-2">
-                          <span className="font-mono text-[10px] text-rose-400 font-bold mr-1.5">
+                          <span className="font-mono text-[10px] text-link font-bold mr-1.5">
                             {row.sku}
                           </span>
-                          <span className="text-white font-medium text-[11px] truncate">
+                          <span className="text-foreground font-medium text-[11px] truncate">
                             {row.name}
                           </span>
                         </div>
                         <div className="text-right shrink-0">
                           {row.isValid ? (
-                            <span className="font-bold text-emerald-400 font-mono">
+                            <span className="font-bold text-success font-mono">
                               {row.qty} Kg
                             </span>
                           ) : (
-                            <span className="text-[10px] text-rose-400 font-semibold">
+                            <span className="text-[10px] text-link font-semibold">
                               {row.errorMessage || 'Invalid'}
                             </span>
                           )}
@@ -873,11 +872,11 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
               )}
             </div>
 
-            <div className="pt-2 border-t border-slate-800 flex items-center justify-end space-x-2">
+            <div className="pt-2 border-t border-border flex items-center justify-end space-x-2">
               <button
                 type="button"
                 onClick={() => setIsImportModalOpen(false)}
-                className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition cursor-pointer"
+                className="px-3 py-2 rounded-xl bg-muted hover:bg-accent text-foreground text-xs font-semibold transition cursor-pointer"
               >
                 Batal
               </button>
@@ -885,7 +884,7 @@ export const QuickInputForm: React.FC<QuickInputFormProps> = ({
                 type="button"
                 disabled={importRows.filter(r => r.isValid).length === 0}
                 onClick={handleApplyExcelLogs}
-                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-md shadow-emerald-950/40"
+                className="px-4 py-2 rounded-xl bg-primary hover:bg-primary-hover disabled:opacity-50 text-primary-foreground text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shadow-card "
               >
                 <Check className="w-4 h-4" />
                 <span>Simpan Entri Hasil Jadi</span>

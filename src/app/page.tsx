@@ -256,11 +256,11 @@ export default function HomePage() {
 
   if (!isClientLoaded) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-white">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 animate-pulse flex items-center justify-center mb-3">
+      <div className="min-h-screen bg-canvas flex flex-col items-center justify-center text-foreground">
+        <div className="w-12 h-12 rounded-2xl bg-primary animate-pulse flex items-center justify-center mb-3">
           <span className="text-xl font-black">PC</span>
         </div>
-        <p className="text-sm text-slate-400 font-medium">Memuat PlanCraft Daging Frozen...</p>
+        <p className="text-sm text-muted-foreground font-medium">Memuat PlanCraft Daging Frozen...</p>
       </div>
     );
   }
@@ -347,12 +347,12 @@ export default function HomePage() {
   };
 
   return (
-    <div className={`min-h-screen bg-slate-950 flex flex-col ${isMobileFrame ? 'p-0 md:p-6 md:bg-slate-900/60' : ''}`}>
+    <div className={`min-h-screen bg-canvas flex flex-col ${isMobileFrame ? 'p-0 md:p-6 md:bg-card' : ''}`}>
       {/* Wrapper - Either normal responsive or phone frame simulation */}
       <div
         className={`@container flex-1 flex flex-col mx-auto w-full transition-all duration-300 ${
           isMobileFrame
-            ? 'max-w-md bg-slate-950 md:rounded-[40px] md:border-[10px] md:border-slate-800 md:shadow-2xl md:overflow-hidden relative min-h-[844px]'
+            ? 'max-w-md bg-canvas md:rounded-[40px] md:border-[10px] md:border-border md:shadow-pop md:overflow-hidden relative min-h-[844px]'
             : 'max-w-4xl'
         }`}
       >
